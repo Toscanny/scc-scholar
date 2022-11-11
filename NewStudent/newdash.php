@@ -1,0 +1,106 @@
+<?php 
+
+include_once ("connect 2.php");
+
+$statement = $conn->prepare("SELECT * FROM  tbl_student");
+$statement ->execute();
+$tbl_student = $statement-> fetchALL(PDO :: FETCH_ASSOC);
+
+
+
+?>
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+ <link rel="stylesheet" href= "app.css"> 
+
+    <title>Record of Information</title>
+  </head>
+  <body>
+    <h1>Lira's Shop!</h1>
+    <a href ="create.php" type="button" class="btn btn-success">Add Buyer</a>
+    <a class="active"></a>
+
+    <table class="table"><table class="table table-hover">
+ 
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">School ID</th>
+      <th scope="col">Image</th>
+     <th scope="col">Last Name</th>
+      <th scope="col">Given Name</th>
+      <th scope="col">Middle Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Birthday</th>
+      <th scope="col">Cellphone No.</th>
+
+
+      <!-- <th scope="col">Permanent Home Address</th>
+      <th scope="col">Previous School Attended</th>
+      <th scope="col">Course/Program</th>
+      <th scope="col">Email Address</th>
+      <th scope="col">Year Level</th> -->
+
+    </tr>
+  </thead>
+
+    <tbody>
+      <?php foreach ($tbl_student as $i => $tbl_student): ?>
+    <tr>
+      <th scope= "row"><?php echo $i + 1 ?></th>
+      <td><?php echo $tbl_student ['ss_id'] ?></td> 
+      <td><?php echo $tbl_student ['simage'] ?></td>
+      <td><?php echo $tbl_student ['slname'] ?></td> 
+      <td><?php echo $tbl_student ['sfname'] ?></td> 
+      <td><?php echo $tbl_student ['smname'] ?></td> 
+      <td><?php echo $tbl_student ['sgender'] ?></td> 
+      <td><?php echo $tbl_student ['sdbirth'] ?></td> 
+      <td><?php echo $tbl_student ['scontact'] ?></td> 
+   
+        <td>
+   
+        <a href ="update.php?id= <?php echo $tbl_student['s_id']?>"
+        type="button" class="btn btn-sm btn-primary">Edit </a>
+
+        <!-- <form style="display: inline-block" method="POST" action="delete.php">
+          <input type="hidden" name="lname" value="<?php echo $tbl_student['slname']
+          ?>">
+          <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+          </form> -->
+
+
+      </td> 
+
+
+    </tr>
+        
+    
+    <?php endforeach; ?>
+
+    
+  </tbody>
+</table>
+
+
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+  </body>
+</html>
