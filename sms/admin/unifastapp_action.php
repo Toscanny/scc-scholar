@@ -17,7 +17,7 @@
             $output = array();
             
             $main_query = "
-            SELECT * FROM tbl_unifast WHERE susschstat = 'Pending'
+            SELECT * FROM tbl_newstudent WHERE susschstat = 'Pending'
             ";
 
             $search_query = '';

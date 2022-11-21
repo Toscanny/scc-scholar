@@ -148,7 +148,7 @@ padding: 50px;
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
           <div class="container-fluid">
-            <a href="../index1.php" class="navbar-brand">
+            <a href="../../index1.php" class="navbar-brand">
             <img src="img/SCC.png" alt="scc"  style="width:7vmin;height:7vmin;"> SCC Scholarship Management System
             </a>
             <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -165,7 +165,7 @@ padding: 50px;
                 <div class="navbar-nav ms-auto">
                 <nav class="nav flex-column flex-sm-row">
                     <a href="register.php" class="nav-item nav-link ">Sign up</a>
-                    <a href="login.php"  class="nav-item nav-link active">Login</a>
+                    <a href="index.php"  class="nav-item nav-link active">Login</a>
                 </div></nav>
             </div>
         </div>

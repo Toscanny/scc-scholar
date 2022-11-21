@@ -120,7 +120,7 @@
             <!-- Nav Item - Pages Collapse Menu -->
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="scholars.php">
+                <a class="nav-link collapsed" href="unifast_app.php">
                     <i class="fas fa-user-clock"></i>
                     <span>Unifast</span>
                 </a>

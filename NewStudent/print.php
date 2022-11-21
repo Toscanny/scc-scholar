@@ -34,18 +34,13 @@
 	</head>
 <body>
 
-
-
-
 <?php 
 
 include_once ("connect 2.php");
 
-$statement = $conn->prepare("SELECT * FROM  tbl_student");
+$statement = $conn->prepare("SELECT * FROM  tbl_newstudent");
 $statement ->execute();
 $tbl_student = $statement-> fetch(PDO :: FETCH_ASSOC);
-
-
 
 ?>
 
@@ -82,81 +77,149 @@ table, th, td {
 	</style>
 
 <div class="marg">
-  <body>
-    <h1>List of New Applicant!</h1>
+<style>
+table, th, td {
+  border:1px solid black;
+  border-collapse: collapse;
+}
 
-   
-    <?php foreach ($tbl_student as $i => $tbl_student): ?>
-    <table style="width:50%">
+h1 {
+  font-size: 30px;
+}
+
+h2 {
+  font-size: 20px;
+  letter-spacing: -1px;
+}
+</style>
+<body>
+<p style="text-align:center">
+St. Cecilia's College-Cebu, Inc.
+LASSO Supervised School
+Natallio B. Bacalso South National Highway
+Minglanilla, Cebu
+Tel. No. 032268474/032-490-0767
+</p>
+<h1 style="text-align:center">UniFast APPLICATION FORM</h1>
+<h2 style="text-align:center">S.Y.:</h2>
+
+<table>
   <tr>
-    <th>Student ID NO. </th>
-    <td style="width: 70%">
-    <!-- <?php echo $tbl_student ['ss_id'] ?> -->
-  </td> 
-
-
-  <th>Student ID NO. </th>
-    <td style="width: 70%">
-    <!-- <?php echo $tbl_student ['ss_id'] ?> -->
-  </td> 
-
-
-   
-    </tr>
-
-
-
-
-
-
-
-
+    <td>STUDENT ID NO. </td>
+    <td style="width:60%"><?php echo $tbl_student ['ss_id'] ?></td>
+  </tr>
 </table>
+<br>
 
-
-   
-    <tr style="width:10%">>
-
-      <th scope="col">Image</th>
-     <th scope="col">Last Name</th>
-      <th scope="col">Given Name</th>
-      <th scope="col">Middle Name</th>
-      <th scope="col">Gender</th>
-      <th scope="col">Birthday</th>
-
-
-
-      <!-- <th scope="col">Permanent Home Address</th>
-      <th scope="col">Previous School Attended</th>
-      <th scope="col">Course/Program</th>
-      <th scope="col">Email Address</th>
-      <th scope="col">Year Level</th> -->
-
-    </tr>
-
-
-    <tbody>
-      
-    <tr>
-
-   
-      <td><?php echo $tbl_student ['simage'] ?></td>
-      <td><?php echo $tbl_student ['slname'] ?></td> 
-      <td><?php echo $tbl_student ['sfname'] ?></td> 
-      <td><?php echo $tbl_student ['smname'] ?></td> 
-      <td><?php echo $tbl_student ['sgender'] ?></td> 
-      <td><?php echo $tbl_student ['sdbirth'] ?></td> 
-     
-     
-
-    </tr>
-        
-    
-    <?php endforeach; ?>
-
-    
-  </tbody>
+<table style="width:100%">
+  <tr>
+    <th style="text-align:center" colspan="6">PERSONAL DETAILS</th> 
+  </tr>
+  <tr>
+    <td>LAST NAME</td>
+    <td style="width:70%" colspan="5"><?php echo $tbl_student ['slname'] ?></td> 
+  </tr>
+  <tr>
+    <td>GIVEN NAME</td>
+    <td colspan="5"><?php echo $tbl_student ['sfname'] ?></td>
+  </tr>
+  <tr>
+    <td>MIDDLE NAME</td>
+    <td colspan="5"><?php echo $tbl_student ['smname'] ?></td>
+  </tr>
+  <tr>
+    <td>GENDER</td>
+    <td><?php echo $tbl_student ['sgender'] ?></td>
+    <td>BIRTHDATE: (mm/dd/yyyy)</td>
+    <td><?php echo $tbl_student ['sdbirth'] ?></td>
+    <td>CELLPHONE NO.</td>
+    <td><?php echo $tbl_student ['scontact'] ?></td>
+  </tr>
 </table>
+<br>
+<table style="width:100%">
+  <tr>
+    <td>PERMANENT HOME ADDRESS</td>
+    <td style="width:70%" colspan="5"><?php echo $tbl_student ['saddress'] ?></td> 
+  </tr>
+  <tr>
+    <td>PREVIOUS SCHOOL ATTENDED</td>
+    <td colspan="5"><?php echo $tbl_student ['spschname'] ?></td>
+  </tr>
+  <tr>
+    <td>COURSE/PROGRAM</td>
+    <td colspan="3"><?php echo $tbl_student ['sccourse'] ?></td>
+    <td>YEAR LEVEL</td>
+    <td><?php echo $tbl_student ['syrlvl'] ?></td>
+  </tr>
+  <tr>
+    <td>EMAIL ADDRESS</td>
+    <td style="width:70%" colspan="5"><?php echo $tbl_student ['semail'] ?></td> 
+  </tr>
+</table>
+<br>
+<table style="width:100%">
+	
+  <tr>
+    <th style="text-align:center" colspan="6">FAMILY DETAILS</th> 
+  </tr>
+  <tr>
+  	<td></td>
+    <td>LAST NAME</td>
+    <td>GIVEN NAME</td>
+    <td>MIDDLE NAME</td>
+    <td colspan="2">OCCUPATION</td>
+  </tr>
+  <tr>
+    <td>FATHER</td>
+    <td><?php echo $tbl_student ['sflname'] ?></td>
+    <td><?php echo $tbl_student ['sffname'] ?></td>
+    <td><?php echo $tbl_student ['sfmname'] ?></td>
+    <td colspan="2"><?php echo $tbl_student ['sfoccu'] ?></td>
+  </tr>
+  <tr>
+    <td>MOTHER</td>
+    <td><?php echo $tbl_student ['smlname'] ?></td>
+    <td><?php echo $tbl_student ['smfname'] ?></td>
+    <td><?php echo $tbl_student ['smmname'] ?></td>
+    <td colspan="2"><?php echo $tbl_student ['smoccu'] ?></td>
+  </tr>
+</table>
+<br>
+<table style="width:100%">
+  <tr>
+    <td>DSWD HOUSEHOLD/4PS NO.</td>
+    <td style="width:70%" colspan="5"><?php echo $tbl_student ['s4psno'] ?></td> 
+  </tr>
+  <tr>
+    <td>HOUSEHOLD CAPITAL INCOME</td>
+    <td colspan="5"><?php echo $tbl_student ['spcyincome'] ?></td>
+  </tr>
+  <tr>
+    <td>SPECIFY DISABILITY/ATTACHED PWD ID</td>
+    <td colspan="3"><?php echo $tbl_student ['S_disability'] ?></td>
+    <td>DATE FILED</td>
+    <td><?php echo $tbl_student ['s_datefil'] ?></td>
+  </tr>
+</table>
+</body>
+</html>
+
+<p style="text-align:center"> I certify that the entries above are true and correct to the best of my knowledge and belief. I hereby authorize the scholarship coordinator to verify such entries. I also understand and agree that any misinterpretation or material omission made herein related to the UniFAST SCHOLARSHIP shall be subject for disciplinary action.
+
+
+<p>(Signature of applicant over  printed name)</p>
+
+<p>Date</p>
+
+<p style="text-align:center">SCHOLARSHIP AGREEMENT</p>
+<p>UniFast Requirements:</p>
+<p>1. 1pc 2X2 colored picture</p>
+<p>2. 1pc Photocopy of NSO|PSA</p>
+<p>3. Brgy., Residency(Minglanilla)</p>
+
+
+   
 
 
     <!-- Optional JavaScript; choose one of the two! -->
@@ -187,5 +250,4 @@ table, th, td {
 	});
 </script>
 </html>
-
 

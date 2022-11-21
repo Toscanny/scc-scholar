@@ -23,14 +23,14 @@ $object = new sms;
 		if($_POST["action"] == 'fetch')
 		{
 
-			$order_column = array('slname', 'sfname', 'scontact', 'semail', 's_scholar_stat', 's_applied_on');
+			$order_column = array('slname', 'sfname', 'scontact', 'semail', 's_scholar_stat', 's_datefil');
 			/* Common Data
 				+slname, +sfname, +smname, +sdbirth, +scontact, +sgender, +semail, +s_scholar_stat		
 			*/
 			$output = array();
 			
 			$main_query = "
-			SELECT * FROM tbl_student WHERE s_scholar_stat != ''
+			SELECT * FROM tbl_newstudent WHERE s_scholar_stat != ''
 			";
 
 			$search_query = '';
@@ -41,7 +41,7 @@ $object = new sms;
 				$search_query .= 'AND(slname LIKE "%'.$_POST['search']['value'].'%" '; 
 				$search_query .= 'OR sfname LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR sccourse LIKE "%'.$_POST['search']['value'].'%" ';
-				$search_query .= 'OR scsyrlvl LIKE "%'.$_POST['search']['value'].'%" ';
+				$search_query .= 'OR syrlvl LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR scontact LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR semail LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR s_scholar_stat LIKE "%'.$_POST['search']['value'].'%" ';
@@ -89,7 +89,7 @@ $object = new sms;
 						$sub_array[] = $row["slname"];
 						$sub_array[] = $row["sfname"];
 						$sub_array[] = $row["sccourse"];
-						$sub_array[] = $row["scsyrlvl"];
+						$sub_array[] = $row["syrlvl"];
 						$sub_array[] = $row["scontact"];
 						$sub_array[] = $row["semail"];
 						$status = '';
@@ -496,7 +496,7 @@ $object = new sms;
 			);
 
 			$object->query = "
-			SELECT * FROM tbl_student
+			SELECT * FROM tbl_newstudent
 			WHERE semail = :susemail
 			";
 
@@ -509,11 +509,11 @@ $object = new sms;
 			else
 			{
 				$object->query = "
-				INSERT INTO tbl_student
+				INSERT INTO tbl_newstudent
 				(ss_id, slname, sfname, smname, snext, sgender, sdbirth, scontact, saddress, spschname, semail, spscourse, 
-				spsyrlvl, sccourse, scsyrlvl, sffname, smfname, s4psno, spcyincome, spwdid, ssdfile, sdstbytpic, sdstbytpicstat, 
+				syrlvl, sccourse, scsyrlvl, sffname, smfname, s4psno, spcyincome, spwdid, ssdfile, sdstbytpic, sdstbytpicstat, 
 				sdspsa, sdspsastat, sdsbrgyin, sdsbrgyinstat, spass, s_verification_code, s_email_verify, 
-				s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
+				s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_datefil)
 				VALUES (:sus_id, :suslname, :susfname, :susmname, :susnext, :susgender, :susdbirth, :suscontact, 
 				:susaddress, :suspschname, :susemail, :suspscourse, :suspsyrlvl, :susccourse, :suscsyrlvl, :susffname, :susmfname, :sus4psno, 
 				:suspcyincome, :suspwdid, :sussdfile, :susdstbytpic, :susdstbytpicstat, :susdspsa, :susdspsastat, 
@@ -576,56 +576,7 @@ $object = new sms;
 
 					);
 
-					// // Load composer's autoloader
-					// require '../vendor/autoload.php';
-
-					// $mail = new PHPMailer\PHPMailer\PHPMailer();                            
-					// try {
-					// 	//Server settings
-					// 	$mail->isSMTP();                                     
-					// 	$mail->Host = 'smtp.gmail.com';                      
-					// 	$mail->SMTPAuth = true;                             
-					// 	$mail->Username = 'unswaa20@gmail.com';     
-					// 	$mail->Password = 'sio@1231999';             
-					// 	$mail->SMTPOptions = array(
-					// 		'ssl' => array(
-					// 		'verify_peer' => false,
-					// 		'verify_peer_name' => false,
-					// 		'allow_self_signed' => true
-					// 		)
-					// 	);                         
-					// 	$mail->SMTPSecure = 'ssl';                           
-					// 	$mail->Port = 465;                                   
-				
-					// 	//Send Email
-					// 	$mail->setFrom('unswaa20@gmail.com');
-					// 	$mail->FromName = 'Unswaa20';
-						
-					// 	//Recipients
-					// 	$mail->addAddress($_POST["susemail"]);            
-					// 	$mail->addReplyTo('unswaa20@gmail.com');
-					// 	$mail->WordWrap = 50;
-	
-					// 	//Content
-					// 	$mail->isHTML(true);                                  
-					// 	$mail->Subject = 'Verification code for Verify Your Email Address';
-					// 	$message_body = '
-					// 	<p>For verify your email address, Please click on this <a href="'.$object->base_url.'admin/register_verify.php?code='.$s_verification_code.'"><b>link</b></a>.</p>
-					// 	<p>Input this information to login.</p>
-					// 	<p>Username: '.$_POST["susemail"].'</p>
-					// 	<p>Password: '.$suspassword.'</p>
-					// 	<p>Sincerely,</p>
-					// 	<p>Unswaa20</p>
-					// 	';
-					// 	$mail->Body = $message_body;
-				
-					// 	$mail->send();
-	
-					// 	$success = '<div class="alert alert-success">Please Check Your Email for email Verification</div>';
-	
-					// } catch (Exception $e) {
-					// 	$error = '<div class="alert alert-danger">' . $mail->ErrorInfo . '</div>';
-					// }
+					
 
 					$object->execute($data);
 
@@ -2197,7 +2148,7 @@ $object = new sms;
 		);
 
 		$object->query = "
-		UPDATE tbl_student
+		UPDATE tbl_newstudent
 		SET s_scholar_stat = :s_scholar_stat 
 		WHERE s_id = '".$_POST["id"]."'
 		";
@@ -2238,7 +2189,7 @@ $object = new sms;
 			
 					//Send Email
 					$mail->setFrom('damacriscia@gmail.com');
-					$mail->FromName = 'admin';
+					$mail->FromName = 'UNIFAST';
 					
 					//Recipients
 					$mail->addAddress($row["email"]);            
@@ -2310,7 +2261,7 @@ $object = new sms;
 	if($_POST["action"] == 'delete')
 	{
 		$object->query = "
-		DELETE FROM tbl_student 
+		DELETE FROM tbl_newstudent 
 		WHERE s_id = '".$_POST["id"]."'
 		";
 
@@ -2324,7 +2275,7 @@ $object = new sms;
 		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 		{
 		$object->query = "
-			DELETE FROM tbl_student 
+			DELETE FROM tbl_newstudent 
 			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
 			$object->execute();
@@ -2337,7 +2288,7 @@ $object = new sms;
 		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 		{
 		$object->query = "
-			UPDATE tbl_student 
+			UPDATE tbl_newstudent 
 			SET s_scholar_stat = 'Approved'
 			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
@@ -2351,7 +2302,7 @@ $object = new sms;
 		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 		{
 		$object->query = "
-			UPDATE tbl_student 
+			UPDATE tbl_newstudent 
 			SET s_scholar_stat = 'Renewal'
 			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
@@ -2366,7 +2317,7 @@ $object = new sms;
 		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 		{
 		$object->query = "
-			UPDATE tbl_student 
+			UPDATE tbl_newstudent 
 			SET s_scholar_stat = 'Rejected'
 			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 

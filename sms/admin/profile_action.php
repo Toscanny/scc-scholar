@@ -116,8 +116,8 @@ if(isset($_POST["action"]))
 						$mail->isSMTP();                                     
 						$mail->Host = 'smtp.gmail.com';                      
 						$mail->SMTPAuth = true;                             
-						$mail->Username = 'unswaa20@gmail.com';     
-						$mail->Password = 'sio@1231999';             
+						$mail->Username = 'damacriscia@gmail.com';     
+						$mail->Password = 'mfpqpqxpmxksbnwq';             
 						$mail->SMTPOptions = array(
 							'ssl' => array(
 							'verify_peer' => false,
@@ -129,12 +129,12 @@ if(isset($_POST["action"]))
 						$mail->Port = 465;                                   
 				
 						//Send Email
-						$mail->setFrom('unswaa20@gmail.com');
-						$mail->FromName = 'Unswaa20';
+						$mail->setFrom('damacriscia@gmail.com');
+						$mail->FromName = 'UNIFAST';
 						
 						//Recipients
 						$mail->addAddress($_POST["canemail"]);            
-						$mail->addReplyTo('unswaa20@gmail.com');
+						$mail->addReplyTo('damacriscia@gmail.com');
 						$mail->WordWrap = 50;
 
 						//Content

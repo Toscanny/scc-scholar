@@ -55,8 +55,9 @@ $filename = time().'.'.$image_ext;
   
 
 
-$statement = "INSERT INTO tbl_newstudent (ss_id, slname, sfname, smname, sgender, sdbirth, scontact, saddress, spschname, spscourse, syrlvl, semail,sflname,sffname,sfmname,sfoccu,smlname,smfname,smmname,smoccu, s4psno, Sdisability, student_image ) 
-VALUES ('$ss_id','$slname','$sfname','$smname','$sgender','$sdbirth','$scontact','$saddress','$spschname','$sccourse','$syrlvl','$semail','$sflname','$sffname','$sfmname','$sfoccu','$smlname','$smfname','$smmname','$smoccu','$s4psno','$S_disability','$filename')";
+$statement = "INSERT INTO tbl_newstudent (ss_id, s_image, slname, sfname, smname, sgender, sdbirth, scontact, saddress, spschname, sccourse, syrlvl, semail, sflname, sffname, sfmname, sfoccu, smlname, smfname, smmname, smoccu, s4psno, S_disability, s_datefil)
+VALUES ('$ss_id', '$s_image', '$slname', '$sfname', '$smname', '$sgender', '$sdbirth', '$scontact', '$saddress', '$spschname', '$sccourse', '$syrlvl', '$semail', '$sflname', '$sffname', '$sfmname', '$sfoccu', '$smlname', '$smfname', '$smmname', '$smoccu', '$s4psno', '$S_disability', '$s_datefil')";
+
 
 $sql = mysqli_query($conn, $statement);
 if($sql)

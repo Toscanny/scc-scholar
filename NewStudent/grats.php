@@ -40,8 +40,6 @@ h1 {
 </head>
 
 
-
-
 <body>
 
 <header class="bgimg-1 w3-display-container " id="home">
@@ -51,8 +49,8 @@ h1 {
     <h1 class="text-light bg-dark"><b>You have successfully applied for a scholarship!</h1></b>
     <p>
         <br><br>
-     <p>   <a href="profile.php.php" class="btn btn-success">Go back to Homepage </a>
-       <a href="Print.php" class="btn btn-primary ml-3"><span class="glyphicon glyphicon-print"></span> Print </a>
+     <p>   <a href="LoginProfile.php" class="btn btn-success">Go back to Homepage </a>
+       <a href="print.php" class="btn btn-primary ml-3"><span class="glyphicon glyphicon-print"></span> Print </a>
 	
     </p>
 

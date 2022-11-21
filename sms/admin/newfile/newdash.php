@@ -6,8 +6,6 @@ $statement = $conn->prepare("SELECT * FROM  tbl_newstudent");
 $statement ->execute();
 $tbl_student = $statement-> fetchALL(PDO :: FETCH_ASSOC);
 
-
-
 ?>
 
 <!doctype html>
@@ -36,8 +34,7 @@ $tbl_student = $statement-> fetchALL(PDO :: FETCH_ASSOC);
     <tr>
       <th scope="col">#</th>
       <th scope="col">School ID</th>
-      <th scope="col">Image</th>
-     <th scope="col">Last Name</th>
+      <th scope="col">Last Name</th>
       <th scope="col">Given Name</th>
       <th scope="col">Middle Name</th>
       <th scope="col">Gender</th>
@@ -59,7 +56,6 @@ $tbl_student = $statement-> fetchALL(PDO :: FETCH_ASSOC);
     <tr>
       <th scope= "row"><?php echo $i + 1 ?></th>
       <td><?php echo $tbl_student ['ss_id'] ?></td> 
-      <td><?php echo $tbl_student ['simage'] ?></td>
       <td><?php echo $tbl_student ['slname'] ?></td> 
       <td><?php echo $tbl_student ['sfname'] ?></td> 
       <td><?php echo $tbl_student ['smname'] ?></td> 
@@ -69,15 +65,18 @@ $tbl_student = $statement-> fetchALL(PDO :: FETCH_ASSOC);
    
         <td>
    
-        <a href ="update.php?id= <?php echo $tbl_student['s_id']?>"
-        type="button" class="btn btn-sm btn-primary">Subject for Approval </a>
+        <form style="display: inline-block" method="POST" action="update.php">
+          <input type="hidden" name="slname" value="<?php echo $tbl_student['slname']
+          ?>">
+          <button type="submit" class="btn btn-sm btn-primary">Subject for Approval</button>
+        </form>
 
         <form style="display: inline-block" method="POST" action="delete.php">
           <input type="hidden" name="slname" value="<?php echo $tbl_student['slname']
           ?>">
           <button type="submit" class="btn btn-sm btn-danger">Remove</button>
           </form>
-
+        
 
       </td> 
 

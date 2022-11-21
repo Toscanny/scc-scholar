@@ -1,6 +1,6 @@
 <?php 
 session_start();
-include_once ("connect.php");
+include_once ("connect 2.php");
 
 if(isset($_POST['apply'])){
 
