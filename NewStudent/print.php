@@ -69,38 +69,54 @@ $tbl_student = $statement-> fetch(PDO :: FETCH_ASSOC);
   margin-left: 80px;
 }
 
-table, th, td {
-  border: 1px solid black;
-  border-collapse: collapse;
-}
 
 	</style>
-
+<img class="img1" style="margin-top: 10px" src="img/unifast.png" alt="Pineapple" width="100" height="100"> 
 <div class="marg">
 <style>
 table, th, td {
-  border:1px solid black;
+  border:1px solid;
+  border-color: #787878;
   border-collapse: collapse;
-}
-
-h1 {
-  font-size: 30px;
 }
 
 h2 {
   font-size: 20px;
   letter-spacing: -1px;
 }
+
+div {
+  padding: 5px;
+}
+
+.img1 {
+  float: left;
+}
+
+.img2 {
+  float: right;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
 </style>
 <body>
-<p style="text-align:center">
-St. Cecilia's College-Cebu, Inc.
+<div class="clearfix">
+<img class="img1" src="img/ched.png" alt="Pineapple" width="100" height="100">
+  <img class="img2" src="img/SCC.png" alt="Pineapple" width="100" height="100">
+  <p style="text-align:center">
+  St. Cecilia's College-Cebu, Inc.
 LASSO Supervised School
 Natallio B. Bacalso South National Highway
 Minglanilla, Cebu
 Tel. No. 032268474/032-490-0767
-</p>
-<h1 style="text-align:center">UniFast APPLICATION FORM</h1>
+  </p>
+</div>
+<h2 style="text-align:center">UniFast APPLICATION FORM</h2>
 <h2 style="text-align:center">S.Y.:</h2>
 
 <table>
@@ -208,14 +224,11 @@ Tel. No. 032268474/032-490-0767
 <p style="text-align:center"> I certify that the entries above are true and correct to the best of my knowledge and belief. I hereby authorize the scholarship coordinator to verify such entries. I also understand and agree that any misinterpretation or material omission made herein related to the UniFAST SCHOLARSHIP shall be subject for disciplinary action.
 
 
-<p>(Signature of applicant over  printed name)</p>
-
-<p>Date</p>
+<p>(Signature of applicant over  printed name)     Date</p>
 
 <p style="text-align:center">SCHOLARSHIP AGREEMENT</p>
 <p>UniFast Requirements:</p>
-<p>1. 1pc 2X2 colored picture</p>
-<p>2. 1pc Photocopy of NSO|PSA</p>
+<p>1. 1pc 2X2 colored picture 2. 1pc Photocopy of NSO|PSA</p>
 <p>3. Brgy., Residency(Minglanilla)</p>
 
 
