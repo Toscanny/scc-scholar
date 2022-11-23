@@ -2176,7 +2176,7 @@ $object = new sms;
 					$mail->Host = 'smtp.gmail.com';                      
 					$mail->SMTPAuth = true;                             
 					$mail->Username = 'damacriscia@gmail.com';     
-					$mail->Password = 'mfpqpqxpmxksbnwq';             
+					$mail->Password = 'sewgmibamrfxndzg';             
 					$mail->SMTPOptions = array(
 						'ssl' => array(
 						'verify_peer' => false,
@@ -2288,11 +2288,20 @@ $object = new sms;
 		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 		{
 		$object->query = "
-			UPDATE tbl_newstudent 
-			SET s_scholar_stat = 'Approved'
-			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
+		INSERT INTO tbl_student
+		(ss_id, slname, sfname, smname, snext, sgender, sdbirth, scontact, saddress, spschname, semail, spscourse, 
+		syrlvl, sccourse, scsyrlvl, sffname, smfname, s4psno, spcyincome, spwdid, ssdfile, sdstbytpic, sdstbytpicstat, 
+		sdspsa, sdspsastat, sdsbrgyin, sdsbrgyinstat, spass, s_verification_code, s_email_verify, 
+		s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_datefil)
+		SELECT ss_id, slname, sfname, smname, snext, sgender, sdbirth, scontact, saddress, spschname, semail, spscourse, 
+		syrlvl, sccourse, scsyrlvl, sffname, smfname, s4psno, spcyincome, spwdid, ssdfile, sdstbytpic, sdstbytpicstat, 
+		sdspsa, sdspsastat, sdsbrgyin, sdsbrgyinstat, spass, s_verification_code, s_email_verify, 
+		s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_datefil
+		FROM tbl_newstudent
+		WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
+	
 
-			$object->execute();
+	    $object->execute();
 		}
 		echo '<div class="alert alert-success">Selected Student Data Approved</div>';
 	}

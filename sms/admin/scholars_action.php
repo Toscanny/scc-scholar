@@ -41,7 +41,7 @@ $object = new sms;
 				$search_query .= 'AND(slname LIKE "%'.$_POST['search']['value'].'%" '; 
 				$search_query .= 'OR sfname LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR sccourse LIKE "%'.$_POST['search']['value'].'%" ';
-				$search_query .= 'OR scsyrlvl LIKE "%'.$_POST['search']['value'].'%" ';
+				$search_query .= 'OR syrlvl LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR scontact LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR semail LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR s_scholar_stat LIKE "%'.$_POST['search']['value'].'%" ';
@@ -89,25 +89,17 @@ $object = new sms;
 						$sub_array[] = $row["slname"];
 						$sub_array[] = $row["sfname"];
 						$sub_array[] = $row["sccourse"];
-						$sub_array[] = $row["scsyrlvl"];
+						$sub_array[] = $row["syrlvl"];
 						$sub_array[] = $row["scontact"];
 						$sub_array[] = $row["semail"];
 						$status = '';
-						if($row["s_scholar_stat"] == 'Pending')
+						if($row["s_scholar_stat"] == 'Active')
 						{
-							$status = '<button type="button" name="status_button" class="btn btn-warning btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Pending</button>';
-						}
-						else if($row["s_scholar_stat"] == 'Approved')
-						{
-							$status = '<button type="button" name="status_button" class="btn btn-success btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Approved</button>';
-						}
-						else if($row["s_scholar_stat"] == 'Rejected')
-						{
-							$status = '<button type="button" name="status_button" class="btn btn-danger btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Rejected</button>';
+							$status = '<button type="button" name="status_button" class="btn btn-warning btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Active</button>';
 						}
 						else
 						{
-							$status = '<button type="button" name="status_button" class="btn btn-info btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Renewal</button>';
+							$status = '<button type="button" name="status_button" class="btn btn-info btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Inactive</button>';
 						}
 						$sub_array[] = $status;
 						$sub_array[] = $row["s_scholarship_type"];
@@ -2225,7 +2217,7 @@ $object = new sms;
 					$mail->Host = 'smtp.gmail.com';                      
 					$mail->SMTPAuth = true;                             
 					$mail->Username = 'damacriscia@gmail.com';     
-					$mail->Password = 'mfpqpqxpmxksbnwq';             
+					$mail->Password = 'sewgmibamrfxndzg';             
 					$mail->SMTPOptions = array(
 						'ssl' => array(
 						'verify_peer' => false,
@@ -2338,12 +2330,12 @@ $object = new sms;
 		{
 		$object->query = "
 			UPDATE tbl_student 
-			SET s_scholar_stat = 'Approved'
+			SET s_scholar_stat = 'Active'
 			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
 			$object->execute();
 		}
-		echo '<div class="alert alert-success">Selected Student Data Approved</div>';
+		echo '<div class="alert alert-success">Selected Student Data Active</div>';
 	}
 // Renewal All
 	if($_POST["action"] == 'renewal_all')
@@ -2367,12 +2359,12 @@ $object = new sms;
 		{
 		$object->query = "
 			UPDATE tbl_student 
-			SET s_scholar_stat = 'Rejected'
+			SET s_scholar_stat = 'Inactive'
 			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
 			$object->execute();
 		}
-		echo '<div class="alert alert-success">Selected Student Data Rejected</div>';
+		echo '<div class="alert alert-success">Selected Student Data Inactive</div>';
 	}
 
 

@@ -403,10 +403,8 @@ include('footer.php');
                                     <label>Scholarship Status<span class="text-danger">*</span></label>
                                     <select name="s_scholar_stat" id="s_scholar_stat" class="form-control" required>
                                     <option value="">-Select-</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Renewal">Renewal</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -755,10 +753,8 @@ include('footer.php');
                                         <label>Scholarship Status<span class="text-danger">*</span></label>
                                         <select name="sn_scholar_stat" id="sn_scholar_stat" class="form-control" required>
                                         <option value="">-Select-</option>
-                                        <option value="Pending">Pending</option>
-                                        <option value="Approved">Approved</option>
-                                        <option value="Rejected">Rejected</option>
-                                        <option value="Renewal">Renewal</option>
+                                        <option value="Active">Active</option>
+                                        <option value="Inactive">Inactive</option>
                                         </select>
                                     </div>
                                 </div>
@@ -999,10 +995,8 @@ include('footer.php');
                                     <label>Scholarship Status<span class="text-danger">*</span></label>
                                     <select name="sus_scholar_stat" id="sus_scholar_stat" class="form-control" required>
                                     <option value="">-Select-</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Renewal">Renewal</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -1342,10 +1336,8 @@ include('footer.php');
                                     <label>Scholarship Status<span class="text-danger">*</span></label>
                                     <select name="scs_scholar_stat" id="scs_scholar_stat" class="form-control" required>
                                     <option value="">-Select-</option>
-                                    <option value="Pending">Pending</option>
-                                    <option value="Approved">Approved</option>
-                                    <option value="Rejected">Rejected</option>
-                                    <option value="Renewal">Renewal</option>
+                                    <option value="Active">Active</option>
+                                    <option value="Inactive">Inactive</option>
                                     </select>
                                 </div>
                             </div>
@@ -3015,10 +3007,10 @@ $(document).on('click', '.edit_button', function(){
 $(document).on('click', '.status_button', function(){
     var id = $(this).data('id');
     var status = $(this).data('status');
-    var next_status = 'Approved';
-    if(status == 'Approved')
+    var next_status = 'Active';
+    if(status == 'Active')
     {
-        next_status = 'Rejected';
+        next_status = 'Inactive';
     }
     if(confirm("Are you sure you want to "+next_status+" it?"))
     {
@@ -3456,7 +3448,7 @@ $('#select_all').on('click', function(){;
 // Approve All
 $('#approve_all').click(function(){
     var checkbox = $('.checkbox:checked');
-    var approve_status = 'Approved';
+    var approve_status = 'Active';
     if(checkbox.length > 0)
     {
         var checkbox_value = [];
@@ -3528,7 +3520,7 @@ $('#renewal_all').click(function(){
 // Reject All
 $('#reject_all').click(function(){
     var checkbox = $('.checkbox:checked');
-    var reject_status = 'Rejected';
+    var reject_status = 'Inactive';
     if(checkbox.length > 0)
     {
         var checkbox_value = [];

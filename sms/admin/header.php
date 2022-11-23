@@ -135,12 +135,6 @@
                     <span>Scholars</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="csv.php">
-                    <i class="fas fa-file-excel"></i>
-                    <span>Student Management</span>
-                </a>
-            </li>
 
             <?php
             }
