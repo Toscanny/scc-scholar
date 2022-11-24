@@ -2,7 +2,7 @@
 
 class sms
 {
-	public $base_url = 'http://localhost/sms/';
+	public $base_url = 'http://localhost/scc-scholar/NewStudent/login.php';
 	public $connect;
 	public $query;
 	public $statement;
@@ -49,7 +49,7 @@ class sms
 
 	function is_login()
 	{
-		if(isset($_SESSION['admin_id']))
+		if(isset($_SESSION['S_id']))
 		{
 			return true;
 		}
