@@ -6,8 +6,8 @@ require '../vendor/phpmailer/phpmailer/src/PHPMailer.php';
 require '../vendor/phpmailer/phpmailer/src/SMTP.php';
 require '../vendor/phpmailer/phpmailer/src/Exception.php';
 
-// use PHPMailer\PHPMailer\PHPMailer;
-// use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
 
 // use PHPMailer\PHPMailer\PHPMailer;
 use SMSGatewayMe\Client\ApiClient;
@@ -23,14 +23,14 @@ $object = new sms;
 		if($_POST["action"] == 'fetch')
 		{
 
-			$order_column = array('slname', 'sfname', 'scontact', 'semail', 's_scholar_stat', 's_applied_on');
+			$order_column = array('slname', 'sfname', 'scontact', 'semail', 's_account_status', 's_applied_on');
 			/* Common Data
-				+slname, +sfname, +smname, +sdbirth, +scontact, +sgender, +semail, +s_scholar_stat		
+				+slname, +sfname, +smname, +sdbirth, +scontact, +sgender, +semail, +s_account_status		
 			*/
 			$output = array();
 			
 			$main_query = "
-			SELECT * FROM tbl_student WHERE s_scholar_stat != ''
+			SELECT * FROM tbl_student WHERE s_account_status != ''
 			";
 
 			$search_query = '';
@@ -44,7 +44,7 @@ $object = new sms;
 				$search_query .= 'OR syrlvl LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR scontact LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR semail LIKE "%'.$_POST['search']['value'].'%" ';
-				$search_query .= 'OR s_scholar_stat LIKE "%'.$_POST['search']['value'].'%" ';
+				$search_query .= 'OR s_account_status LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR s_scholarship_type LIKE "%'.$_POST['search']['value'].'%" )';
 			}
 
@@ -93,20 +93,20 @@ $object = new sms;
 						$sub_array[] = $row["scontact"];
 						$sub_array[] = $row["semail"];
 						$status = '';
-						if($row["s_scholar_stat"] == 'Active')
+						if($row["s_account_status"] == 'Active')
 						{
-							$status = '<button type="button" name="status_button" class="btn btn-warning btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Active</button>';
+							$status = '<button type="button" name="status_button" class="btn btn-warning btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_account_status"].'">Active</button>';
 						}
 						else
 						{
-							$status = '<button type="button" name="status_button" class="btn btn-info btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Inactive</button>';
+							$status = '<button type="button" name="status_button" class="btn btn-info btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_account_status"].'">Inactive</button>';
 						}
 						$sub_array[] = $status;
 						$sub_array[] = $row["s_scholarship_type"];
 						$sub_array[] = '
 						<div align="center">
-							<button type="button" name="view_button" class="btn btn-info btn-circle btn-sm view_button" data-id="'.$row["s_id"].'" data-stype="'.$row["s_scholarship_type"].'"><i class="fas fa-eye"></i></button>
-							<button type="button" name="edit_button" class="btn btn-warning btn-circle btn-sm edit_button" data-id="'.$row["s_id"].'" data-stype="'.$row["s_scholarship_type"].'"><i class="fas fa-edit"></i></button>
+							<button type="button" name="view_button" class="btn btn-info btn-circle btn-sm view_button" data-id="'.$row["s_id"].'"><i class="fas fa-eye"></i></button>
+							<button type="button" name="edit_button" class="btn btn-warning btn-circle btn-sm edit_button" data-id="'.$row["s_id"].'"><i class="fas fa-edit"></i></button>
 							<button type="button" name="delete_button" class="btn btn-danger btn-circle btn-sm delete_button" data-id="'.$row["s_id"].'"><i class="fas fa-times"></i></button>
 						</div>
 						';
@@ -153,11 +153,11 @@ $object = new sms;
 			(ss_id, sfname, smname, slname, snext, sdbirth, sgender, sctship, saddress, semail, scontact, sccourse, scsyrlvl, sgfname, 
 			sgaddress, sgcontact, sgoccu, sgcompany, sffname, sfaddress, sfcontact, sfoccu, sfcompany, smfname, smaddress, smcontact, 
 			smoccu, smcompany, spcyincome, spsgwa, spsraward, spsdawardrceive, spass, sdsprc, sdsprcstat, sdspgm, sdspgmstat, sdspcr, sdspcrstat, 
-			s_verification_code, s_email_verify, s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
+			s_verification_code, s_email_verify, s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
 			VALUES (:ss_id, :sfname, :smname, :slname, :snext, :sdbirth, :sgender, :sctship, :saddress, :semail, :scontact, :sccourse, :scsyrlvl, 
 			:sgfname, :sgaddress, :sgcontact, :sgoccu, :sgcompany, :sffname, :sfaddress, :sfcontact, :sfoccu, :sfcompany, :smfname, 
 			:smaddress, :smcontact, :smoccu, :smcompany, :spcyincome, :spsgwa, :spsraward, :spsdawardrceive, :spass, :sdsprc, :sdsprcstat, 
-			:sdspgm, :sdspgmstat, :sdspcr, :sdspcrstat, :s_verification_code, 'No', 'Active', :s_scholarship_note, :s_scholar_stat, 'Academic', '$object->now')";
+			:sdspgm, :sdspgmstat, :sdspcr, :sdspcrstat, :s_verification_code, 'No', 'Active', :s_scholarship_note, :s_account_status, 'Academic', '$object->now')";
 
 			if($error == '')
 			{
@@ -223,7 +223,7 @@ $object = new sms;
 					// Scholarship Note
 					':s_scholarship_note'		  	=>	$object->clean_input($_POST["s_scholarship_note"]),
 					// Scholarship Details
-					':s_scholar_stat'		  		=>	$object->clean_input($_POST["s_scholar_stat"])
+					':s_account_status'		  		=>	$object->clean_input($_POST["s_account_status"])
  				);
 
 					// // Load composer's autoloader
@@ -324,7 +324,7 @@ $object = new sms;
 				sfcompany, smfname, smaddress, smcontact, smoccu, smcompany, spcyincome, srappnas, sbos, ssskills, 
 				stwinterest, spschname, spsaddress, spsyrlvl, spass, s_verification_code, sdsprc, sdsprcstat, sdspgm, 
 				sdspgmstat, sdstbytpic, sdstbytpicstat, sdsbrgyin, sdsbrgyinstat, sdscef, sdscefstat, s_email_verify, 
-				s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
+				s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
 				VALUES (:sns_id, :snfname, :snmname, :snlname, :snnext, :sndbirth, :sngender, :snctship, :snaddress, :snemail, :sncontact, 
 				:snccourse, :sncsyrlvl, :sngfname, :sngaddress, :sngcontact, :sngoccu, :sngcompany, :snffname, :snfaddress, :snfcontact, 
 				:snfoccu, :snfcompany, :snmfname, :snmaddress, :snmcontact, :snmoccu, :snmcompany, :snpcyincome, :snrappnas, :snbos, 
@@ -505,11 +505,11 @@ $object = new sms;
 				(ss_id, slname, sfname, smname, snext, sgender, sdbirth, scontact, saddress, spschname, semail, spscourse, 
 				spsyrlvl, sccourse, scsyrlvl, sffname, smfname, s4psno, spcyincome, spwdid, ssdfile, sdstbytpic, sdstbytpicstat, 
 				sdspsa, sdspsastat, sdsbrgyin, sdsbrgyinstat, spass, s_verification_code, s_email_verify, 
-				s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
+				s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
 				VALUES (:sus_id, :suslname, :susfname, :susmname, :susnext, :susgender, :susdbirth, :suscontact, 
 				:susaddress, :suspschname, :susemail, :suspscourse, :suspsyrlvl, :susccourse, :suscsyrlvl, :susffname, :susmfname, :sus4psno, 
 				:suspcyincome, :suspwdid, :sussdfile, :susdstbytpic, :susdstbytpicstat, :susdspsa, :susdspsastat, 
-				:susdsbrgyin, :susdsbrgyinstat, :suspass, :sus_verification_code, 'No', 'Active', :sus_scholarship_note, :sus_scholar_stat, 
+				:susdsbrgyin, :susdsbrgyinstat, :suspass, :sus_verification_code, 'No', 'Active', :sus_scholarship_note, :sus_account_status, 
 				'UNIFAST', '$object->now')";
 				
 				// Generate Verifcation Code
@@ -560,7 +560,7 @@ $object = new sms;
 					// Scholarship Note
 						':sus_scholarship_note'			=>	$object->clean_input($_POST["sus_scholarship_note"]),
 					// Scholarship Details
-						':sus_scholar_stat'		  		=>	$object->clean_input($_POST["sus_scholar_stat"]),
+						':sus_account_status'		  		=>	$object->clean_input($_POST["sus_account_status"]),
 					// Password
 						':suspass'				        =>	$sushash,
 					// Verification Code
@@ -663,13 +663,13 @@ $object = new sms;
 				spschname, spsaddress,  spstype, spsyrlvl, sctship, scontact, semail, sdisability, sffname, sflstatus, 
 				sfaddress, sfoccu, sfeduc, smfname, smlstatus, smaddress, smoccu, smeduc, spcyincome, snsibling, scsintend, 
 				scsadd, scschooltype, sccourse, scsyrlvl, sccourseprio, sdsprc, sdsprcstat, sdsbrgyin, sdsbrgyinstat, sdspgm, sdspgmstat, 
-				spass, s_verification_code, s_email_verify, s_account_status, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
+				spass, s_verification_code, s_email_verify, s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
 				VALUES (:scss_id, :scsfname, :scsmname, :scslname, :scsnext, :scsdbirth, :scsgender, :scscivilstat, :scspbirth, 
 				:scsaddress, :scszcode, :scspschname, :scspsaddress, :scspstype, :scspsyrlvl, :scsctship, :scscontact, :scsemail, 
 				:scsdisability, :scsffname, :scsflstatus, :scsfaddress, :scsfoccu, :scsfeduc, :scsmfname, :scsmlstatus, :scsmaddress, 
 				:scsmoccu, :scsmeduc, :scspcyincome, :scsnsibling, :scscsintend, :scscsadd, :scscschooltype, :scsccourse, :scscsyrlvl, 
 				:scsccourseprio, :scsdsprc, :scsdsprcstat, :scsdsbrgyin, :scsdsbrgyinstat, :scsdspgm, :scsdspgmstat, :scspass, 
-				:sc_verification_code, 'No', 'Active', :scs_scholarship_note, :scs_scholar_stat, 'CHED', '$object->now')";
+				:sc_verification_code, 'No', 'Active', :scs_scholarship_note, :scs_account_status, 'CHED', '$object->now')";
 				
 				// Generate Verifcation Code
 				$sc_verification_code = md5(uniqid());
@@ -735,7 +735,7 @@ $object = new sms;
 					// Scholarship Note
 						':scs_scholarship_note'			=>	$object->clean_input($_POST["scs_scholarship_note"]),
 					// Scholarship Details
-						':scs_scholar_stat'			=>	$object->clean_input($_POST["scs_scholar_stat"]),
+						':scs_account_status'			=>	$object->clean_input($_POST["scs_account_status"]),
 					// Password
 						':scspass'				        =>	$schash,
 					// Verification Code
@@ -929,7 +929,7 @@ $object = new sms;
 				<option value="s_email_verify">Student Email Verification Status</option>
 				<option value="s_account_status">Student Account Status</option>
 				<option value="s_grant_stat">Student Grant Status</option>
-				<option value="s_scholar_stat">Student Scholarship Status</option>
+				<option value="s_account_status">Student Scholarship Status</option>
 				<option value="s_scholarship_type">Student Scholarship Type</option>			
 			</select>
 		</th>
@@ -1110,7 +1110,7 @@ $object = new sms;
 					':s_email_verify'			=>	$row[$_POST["s_email_verify"]],
 					':s_account_status'			=>	$row[$_POST["s_account_status"]],
 					':s_grant_stat'				=>	$row[$_POST["s_grant_stat"]],
-					':s_scholar_stat'			=>	$row[$_POST["s_scholar_stat"]],
+					':s_account_status'			=>	$row[$_POST["s_account_status"]],
 					':s_scholarship_type'		=>	$row[$_POST["s_scholarship_type"]]
 				);
 
@@ -1129,7 +1129,7 @@ $object = new sms;
 				sdspcr, sdspcrstat, sdstbytpic, sdstbytpicstat, sdsbrgyin, sdsbrgyinstat, sdscef, 
 				sdscefstat, sdspsa, sdspsastat, sdsobr, sdsobrstat, s_scholarship_note, s_added_on, 
 				s_applied_on, s_verification_code, s_user_otp, s_email_verify, s_account_status, s_grant_stat, 
-				s_scholar_stat, s_scholarship_type) 
+				s_account_status, s_scholarship_type) 
 				VALUES (:ss_id, :sfname, :smname, :slname, :snext, :sdbirth, :sgender, :saddress, 
 				:szcode, :scontact, :semail, :sctship, :scivilstat, :spbirth, :sdisability, :s4psno, 
 				:spwdid, :srappsship, :srappnas, :sbos, :ssskills, :stwinterest, :ssdfile, :sgfname, 
@@ -1141,7 +1141,7 @@ $object = new sms;
 				:sccourseprio, :scsyrlvl, :spass, :sdsprc, :sdsprcstat, :sdspgm	 :sdspgmstat, :sdspcr, :sdspcrstat, 
 				:sdstbytpic, :sdstbytpicstat, :sdsbrgyin, :sdsbrgyinstat, :sdscef, :sdscefstat, :sdspsa, :sdspsastat, 
 				:sdsobr, :sdsobrstat, :s_scholarship_note, :s_added_on, :s_applied_on, :s_verification_code, 
-				:s_user_otp, :s_email_verify, :s_account_status, :s_grant_stat, :s_scholar_stat, :s_scholarship_type)
+				:s_user_otp, :s_email_verify, :s_account_status, :s_grant_stat, :s_account_status, :s_scholarship_type)
 				";
 
 				$object->execute($data);
@@ -1323,7 +1323,7 @@ $object = new sms;
 				$row[] = $rows["s_email_verify"];
 				$row[] = $rows["s_account_status"];
 				$row[] = $rows["s_grant_stat"];
-				$row[] = $rows["s_scholar_stat"];
+				$row[] = $rows["s_account_status"];
 				$row[] = $rows["s_scholarship_type"];
 
 				$content[] = $row;
@@ -1339,1035 +1339,218 @@ $object = new sms;
 
 	}
 
-// Single Acad Fetch Query
-	if($_POST["action"] == 'acad_fetch_single')
+// Single Student Fetch Query
+if($_POST["action"] == 'student_fetch_single')
+{
+	$object->query = "
+	SELECT * FROM tbl_student 
+	WHERE s_id = '".$_POST["s_id"]."'
+	";
+
+	$result = $object->get_result();
+
+	$data = array();
+
+	foreach($result as $row)
 	{
-		$object->query = "
-		SELECT * FROM tbl_student 
-		WHERE s_id = '".$_POST["s_id"]."' AND s_scholarship_type = 'Academic'
-		";
-
-		$result = $object->get_result();
-
-		$data = array();
-
-		foreach($result as $row)
-		{
 		// Student ID Details
-			$data['ss_id'] = $row['ss_id'];
+		$data['ss_id'] = $row['ss_id'];
 		// Personal Details
-			$data['sfname'] = $row['sfname'];
-			$data['smname'] = $row['smname'];
-			$data['slname'] = $row['slname'];
-			$data['snext'] = $row['snext'];
-			$data['sdbirth'] = $row['sdbirth'];
-			$data['sgender'] = $row['sgender'];
-			$data['sctship'] = $row['sctship'];
-			$data['saddress'] = $row['saddress'];
-			$data['semail'] = $row['semail'];
-			$data['scontact'] = $row['scontact'];
-			$data['sccourse'] = $row['sccourse'];
-			$data['scsyrlvl'] = $row['scsyrlvl'];
+		$data['sfname'] = $row['sfname'];
+		$data['smname'] = $row['smname'];
+		$data['slname'] = $row['slname'];
+		$data['snext'] = $row['snext'];
+		$data['sdbirth'] = $row['sdbirth'];
+		$data['sgender'] = $row['sgender'];
+		$data['scivilstat'] = $row['scivilstat'];
+		$data['saddress'] = $row['saddress'];
+		$data['scontact'] = $row['scontact'];
+		$data['spschname'] = $row['spschname'];
+		$data['sccourse'] = $row['sccourse'];
+		$data['scsyrlvl'] = $row['scsyrlvl'];
 		// Family Details
-			// Guardian Details
-			$data['sgfname'] = $row['sgfname'];
-			$data['sgaddress'] = $row['sgaddress'];
-			$data['sgcontact'] = $row['sgcontact'];
-			$data['sgoccu'] = $row['sgoccu'];
-			$data['sgcompany'] = $row['sgcompany'];
-			// Father Details
-			$data['sffname'] = $row['sffname'];
-			$data['sfaddress'] = $row['sfaddress'];
-			$data['sfcontact'] = $row['sfcontact'];
-			$data['sfoccu'] = $row['sfoccu'];
-			$data['sfcompany'] = $row['sfcompany'];
-			// Mother Details
-			$data['smfname'] = $row['smfname'];
-			$data['smaddress'] = $row['smaddress'];
-			$data['smcontact'] = $row['smcontact'];
-			$data['smoccu'] = $row['smoccu'];
-			$data['smcompany'] = $row['smcompany'];
-			$data['spcyincome'] = $row['spcyincome'];
-		// Achievement Details
-			$data['spsgwa'] = $row['spsgwa'];
-			$data['spsraward'] = $row['spsraward'];
-			$data['spsdawardrceive'] = $row['spsdawardrceive'];
-		// Requirement Details
-			$data['sdsprc'] = $row['sdsprc'];
-			$data['sdsprcstat'] = $row['sdsprcstat'];
-			$data['sdspgm'] = $row['sdspgm'];
-			$data['sdspgmstat'] = $row['sdspgmstat'];
-			$data['sdspcr'] = $row['sdspcr'];
-			$data['sdspcrstat'] = $row['sdspcrstat'];
-		// Scholarship Note
-			$data['s_scholarship_note'] = $row['s_scholarship_note'];
+		// Guardian Details
+		$data['sgfname'] = $row['sgfname'];
+		// Father Details
+		$data['sffname'] = $row['sffname'];
+		$data['sfoccu'] = $row['sfoccu'];
+		// Mother Details
+		$data['smfname'] = $row['smfname'];
+		$data['smoccu'] = $row['smoccu'];
 		// Scholar Type
-			$data['s_scholarship_type'] = $row['s_scholarship_type'];
-			$data['s_scholar_stat'] = $row['s_scholar_stat'];
-			$data['s_applied_on'] = $row['s_applied_on'];
-		}
-
-		echo json_encode($data);
+		$data['s_scholarship_type'] = $row['s_scholarship_type'];
+		$data['s_account_status'] = $row['s_account_status'];
 	}
 
-// Single Non-Acad Fetch Query
-	if($_POST["action"] == 'nonacad_fetch_single')
-	{
-		$object->query = "
-		SELECT * FROM tbl_student
-		WHERE s_id = '".$_POST["s_id"]."' AND s_scholarship_type = 'Non-Academic'
-		";
-
-		$result = $object->get_result();
-
-		$data = array();
-
-		foreach($result as $row)
-		{
-		// Student ID Details
-				$data['sns_id'] = $row['ss_id'];
-		// Personal Details
-				$data['snfname'] = $row['sfname'];
-				$data['snmname'] = $row['smname'];
-				$data['snlname'] = $row['slname'];
-				$data['snnext'] = $row['snext'];
-				$data['sndbirth'] = $row['sdbirth'];
-				$data['sngender'] = $row['sgender'];
-				$data['snctship'] = $row['sctship'];
-				$data['snaddress'] = $row['saddress'];
-				$data['snemail'] = $row['semail'];
-				$data['sncontact'] = $row['scontact'];
-				$data['snccourse'] = $row['sccourse'];
-				$data['sncsyrlvl'] = $row['scsyrlvl'];
-		// Family Details
-			// Guardian Details
-				$data['sngfname'] = $row['sgfname'];
-				$data['sngaddress'] = $row['sgaddress'];
-				$data['sngcontact'] = $row['sgcontact'];
-				$data['sngoccu'] = $row['sgoccu'];
-				$data['sngcompany'] = $row['sgcompany'];
-			// Father Details
-				$data['snffname'] = $row['sffname'];
-				$data['snfaddress'] = $row['sfaddress'];
-				$data['snfcontact'] = $row['sfcontact'];
-				$data['snfoccu'] = $row['sfoccu'];
-				$data['snfcompany'] = $row['sfcompany'];
-			// Mother Details
-				$data['snmfname'] = $row['smfname'];
-				$data['snmaddress'] = $row['smaddress'];
-				$data['snmcontact'] = $row['smcontact'];
-				$data['snmoccu'] = $row['smoccu'];
-				$data['snmcompany'] = $row['smcompany'];
-				$data['snpcyincome'] = $row['spcyincome'];
-		// Application Details
-				$data['snrappnas'] = $row['srappnas'];
-				$data['snbos'] = $row['sbos'];
-				$data['snsskills'] = $row['ssskills'];
-				$data['sntwinterest'] = $row['stwinterest'];
-		// Education Details
-				$data['snpschname'] = $row['spschname'];
-				$data['snpsaddress'] = $row['spsaddress'];
-				$data['snpsyrlvl'] = $row['spsyrlvl']; 
-		// Requirement Details
-				$data['sndsprc'] = $row['sdsprc'];
-				$data['sndsprcstat'] = $row['sdsprcstat'];
-				$data['sndspgm'] = $row['sdspgm'];
-				$data['sndspgmstat'] = $row['sdspgmstat'];
-				$data['sndstbytpic'] = $row['sdstbytpic'];
-				$data['sndstbytpicstat'] = $row['sdstbytpicstat'];
-				$data['sndsbrgyin'] = $row['sdsbrgyin'];
-				$data['sndsbrgyinstat'] = $row['sdsbrgyinstat'];
-				$data['sndscef'] = $row['sdscef'];
-				$data['sndscefstat'] = $row['sdscefstat'];
-		// Scholarship Note
-				$data['sn_scholarship_note'] = $row['s_scholarship_note'];
-		// Scholar Type
-				$data['sn_scholarship_type'] = $row['s_scholarship_type'];
-				$data['sn_scholar_stat'] = $row['s_scholar_stat'];
-				$data['sn_applied_on'] = $row['s_applied_on'];
-		}
-
-		echo json_encode($data);
-	}
-// Single Unifast Fetch Query
-	if($_POST["action"] == 'unifast_fetch_single')
-	{
-		$object->query = "
-		SELECT * FROM tbl_student
-		WHERE s_id = '".$_POST["s_id"]."' AND s_scholarship_type = 'UNIFAST'
-		";
-
-		$result = $object->get_result();
-
-		$data = array();
-
-		foreach($result as $row)
-		{
-		// Student ID Details
-			$data['sus_id'] = $row['ss_id'];
-		// Personal Details
-			$data['susfname'] = $row['sfname'];
-			$data['susmname'] = $row['smname'];
-			$data['suslname'] = $row['slname'];
-			$data['susnext'] = $row['snext'];
-			$data['susgender'] = $row['sgender'];
-			$data['susdbirth'] = $row['sdbirth'];
-			$data['suscontact'] = $row['scontact'];
-			$data['susaddress'] = $row['saddress'];
-			$data['suspschname'] = $row['spschname'];
-			$data['suspscourse'] = $row['spscourse'];
-			$data['suspsyrlvl'] = $row['spsyrlvl'];
-			$data['susccourse'] = $row['sccourse'];
-			$data['suscsyrlvl'] = $row['scsyrlvl'];
-			$data['susemail'] = $row['semail'];
-		// Family Details
-			// Father Details
-			$data['susffname'] = $row['sffname'];
-			// Mother Details
-			$data['susmfname'] = $row['smfname'];
-			// Other Details
-			$data['sus4psno'] = $row['s4psno'];
-			$data['suspcyincome'] = $row['spcyincome'];
-			$data['suspwdid'] = $row['spwdid'];
-			$data['sussdfile'] = $row['ssdfile'];
-		// Requirement Details
-			$data['susdstbytpic'] = $row['sdstbytpic'];
-			$data['susdstbytpicstat'] = $row['sdstbytpicstat'];
-			$data['susdspsa'] = $row['sdspsa'];
-			$data['susdspsastat'] = $row['sdspsastat'];
-			$data['susdsbrgyin'] = $row['sdsbrgyin'];
-			$data['susdsbrgyinstat'] = $row['sdsbrgyinstat'];
-		// Scholarship Note
-			$data['sus_scholarship_note'] = $row['s_scholarship_note'];
-		// Scholar Type
-			$data['sus_scholarship_type'] = $row['s_scholarship_type'];
-			$data['sus_scholar_stat'] = $row['s_scholar_stat'];
-			$data['sus_applied_on'] = $row['s_applied_on'];
-		}
-
-		echo json_encode($data);
-	}
-
-// Single CHED Fetch Query
-    if($_POST["action"] == 'ched_fetch_single')
-    {
-        $object->query = "
-        SELECT * FROM tbl_student 
-        WHERE s_id = '".$_POST["s_id"]."' AND s_scholarship_type = 'CHED'
-        ";
-
-        $result = $object->get_result();
-
-        $data = array();
-
-        foreach($result as $row)
-        {
-		// Student ID Details
-				$data['scss_id'] = $row['ss_id'];
-		// Personal Details
-				$data['scsfname'] = $row['sfname'];
-				$data['scsmname'] = $row['smname'];
-				$data['scslname'] = $row['slname'];
-				$data['scsnext'] = $row['snext'];
-				$data['scsdbirth'] = $row['sdbirth'];
-				$data['scsgender'] = $row['sgender'];
-				$data['scscivilstat'] = $row['scivilstat'];
-				$data['scspbirth'] = $row['spbirth'];
-				$data['scsaddress'] = $row['saddress'];
-				$data['scszcode'] = $row['szcode'];
-				$data['scspschname'] = $row['spschname'];
-				$data['scspsaddress'] = $row['spsaddress'];
-				$data['scspstype'] = $row['spstype'];
-				$data['scspsyrlvl'] = $row['spsyrlvl'];
-				$data['scsctship'] = $row['sctship'];
-				$data['scscontact'] = $row['scontact'];
-				$data['scsemail'] = $row['semail'];
-				$data['scsdisability'] = $row['sdisability'];
-		// Family Details
-			// Father Details
-				$data['scsffname'] = $row['sffname'];
-				$data['scsflstatus'] = $row['sflstatus'];
-				$data['scsfaddress'] = $row['sfaddress'];
-				$data['scsfoccu'] = $row['sfoccu'];
-				$data['scsfeduc'] = $row['sfeduc'];
-			// Mother Details
-				$data['scsmfname'] = $row['smfname'];
-				$data['scsmlstatus'] = $row['smlstatus'];
-				$data['scsmaddress'] = $row['smaddress'];
-				$data['scsmoccu'] = $row['smoccu'];
-				$data['scsmeduc'] = $row['smeduc'];
-				$data['scspcyincome'] = $row['spcyincome'];
-				$data['scsnsibling'] = $row['snsibling'];
-		// Education Details
-				$data['scscsintend'] = $row['scsintend'];
-				$data['scscsadd'] = $row['scsadd'];
-				$data['scscschooltype'] = $row['scschooltype']; 
-				$data['scsccourse'] = $row['sccourse'];
-				$data['scscsyrlvl'] = $row['scsyrlvl'];
-				$data['scsccourseprio'] = $row['sccourseprio']; 
-		// Requirement Details
-				$data['scsdsprc'] = $row['sdsprc'];
-				$data['scsdsprcstat'] = $row['sdsprcstat'];
-				$data['scsdspgm'] = $row['sdspgm'];
-				$data['scsdspgmstat'] = $row['sdspgmstat'];
-				$data['scsdsbrgyin'] = $row['sdsbrgyin'];
-				$data['scsdsbrgyinstat'] = $row['sdsbrgyinstat'];
-		// Scholarship Note
-				$data['scs_scholarship_note'] = $row['s_scholarship_note'];
-		// Scholar Type
-			$data['scs_scholarship_type'] = $row['s_scholarship_type'];
-			$data['scs_scholar_stat'] = $row['s_scholar_stat'];
-			$data['scs_applied_on'] = $row['s_applied_on'];
-    	}
-
-    	echo json_encode($data);
-    }
+	echo json_encode($data);
+}
 
 // Edit Acad Query
-	if($_POST["action"] == 'edit_acad')
+if($_POST["action"] == 'edit_student')
+{
+	$error = '';
+
+	$success = '';
+
+	$data = array(
+		':ss_id'	 				=>	$_POST["ss_id"],
+		':s_id'						=>	$_POST['student_hidden_id']
+	);
+
+	$object->query = "
+	SELECT * FROM tbl_student	
+	WHERE ss_id = :ss_id
+	AND s_id != :s_id
+	";
+
+	$object->execute($data);
+
+	if($object->row_count() > 0)
 	{
-		$error = '';
-
-		$success = '';
-
-		$data = array(
-			':semail'	 				=>	$_POST["semail"],
-			':s_id'						=>	$_POST['acad_hidden_id']
-		);
-
-		$object->query = "
-		SELECT * FROM tbl_student	
-		WHERE semail = :semail
-		AND s_id != :s_id
-		";
-
-		$object->execute($data);
-
-		if($object->row_count() > 0)
-		{
-			$error = '<div class="alert alert-danger">Email Address Already Exists</div>';
-		}
-		else
-		{
-			$object->query = "
-			UPDATE tbl_student
-			SET sfname = :sfname,
-			smname = :smname,
-			slname = :slname,
-			snext = :snext,
-			sdbirth = :sdbirth,
-			sctship = :sctship,
-			saddress = :saddress,
-			semail = :semail,
-			scontact = :scontact,
-			sccourse = :sccourse,
-			scsyrlvl = :scsyrlvl,
-			sgender = :sgender,
-			sgfname = :sgfname, 
-			sgaddress = :sgaddress,
-			sgcontact = :sgcontact,
-			sgoccu = :sgoccu,
-			sgcompany = :sgcompany,
-			sffname = :sffname,
-			sfaddress = :sfaddress,
-			sfcontact = :sfcontact,
-			sfoccu = :sfoccu,
-			sfcompany = :sfcompany,
-			smfname = :smfname,
-			smaddress = :smaddress,
-			smcontact = :smcontact,
-			smoccu = :smoccu,
-			smcompany = :smcompany,
-			spcyincome = :spcyincome,
-			spsgwa = :spsgwa,
-			spsraward = :spsraward,
-			spsdawardrceive = :spsdawardrceive,
-			sdsprc = :sdsprc,
-			sdsprcstat = :sdsprcstat,
-			sdspgm = :sdspgm,
-			sdspgmstat = :sdspgmstat,
-			sdsprc = :sdsprc,
-			sdsprcstat = :sdsprcstat,
-			s_scholarship_note = :s_scholarship_note,
-			s_scholar_stat = :s_scholar_stat
-			WHERE s_id = '".$_POST['acad_hidden_id']."'
-			";
-
-			if($error == '')
-			{
-
-				$data = array(
-					// Personal Details
-					':sfname'					    =>	$object->clean_input($_POST["sfname"]),
-					':smname'					    =>	$object->clean_input($_POST["smname"]),
-					':slname'					    =>	$object->clean_input($_POST["slname"]),
-					':snext'					    =>	$object->clean_input($_POST["snext"]),
-					':sdbirth'					  	=>	$object->clean_input($_POST["sdbirth"]),
-					':sgender'					  	=>	$object->clean_input($_POST["sgender"]),
-					':sctship'				    	=>	$object->clean_input($_POST["sctship"]),
-					':saddress'						=>	$object->clean_input($_POST["saddress"]),
-					':semail'						=>	$object->clean_input($_POST["semail"]),
-					':scontact'						=>	$object->clean_input($_POST["scontact"]),
-					':sccourse'						=>	$object->clean_input($_POST["sccourse"]),
-					':scsyrlvl'						=>	$object->clean_input($_POST["scsyrlvl"]),
-					// Family Details
-					// Guardian Details
-					':sgfname'				      	=>	$object->clean_input($_POST["sgfname"]),
-					':sgaddress'					=>	$object->clean_input($_POST["sgaddress"]),
-					':sgcontact'					=>	$object->clean_input($_POST["sgcontact"]),
-					':sgoccu'					    =>	$object->clean_input($_POST["sgoccu"]),
-					':sgcompany'					=>	$object->clean_input($_POST["sgcompany"]),
-					// Father Details
-					':sffname'				      	=>	$object->clean_input($_POST["sffname"]),
-					':sfaddress'					=>	$object->clean_input($_POST["sfaddress"]),
-					':sfcontact'					=>	$object->clean_input($_POST["sfcontact"]),
-					':sfoccu'				      	=>	$object->clean_input($_POST["sfoccu"]),
-					':sfcompany'				   	=>	$object->clean_input($_POST["sfcompany"]),
-					// Mother Details
-					':smfname'				      	=>	$object->clean_input($_POST["smfname"]),
-					':smaddress'					=>	$object->clean_input($_POST["smaddress"]),
-					':smcontact'					=>	$object->clean_input($_POST["smcontact"]),
-					':smoccu'				      	=>	$object->clean_input($_POST["smoccu"]),
-					':smcompany'				    =>	$object->clean_input($_POST["smcompany"]),
-					':spcyincome'				  	=>	$object->clean_input($_POST["spcyincome"]),
-					// Achievement Details
-					':spsgwa'				      	=>	$object->clean_input($_POST["spsgwa"]),
-					':spsraward'					=>	$object->clean_input($_POST["spsraward"]),
-					':spsdawardrceive'		  		=>	$object->clean_input($_POST["spsdawardrceive"]),
-					// Requirement Details
-					':sdsprc'					  	=>	$object->clean_input($_POST["sdsprc"]),
-					':sdsprcstat'					=>	$object->clean_input($_POST["sdsprcstat"]),
-					':sdspgm'				    	=>	$object->clean_input($_POST["sdspgm"]),
-					':sdspgmstat'					=>	$object->clean_input($_POST["sdspgmstat"]),
-					':sdsprc'					  	=>	$object->clean_input($_POST["sdsprc"]),
-					':sdsprcstat'				    =>	$object->clean_input($_POST["sdsprcstat"]),
-					// Scholarship Note
-					':s_scholarship_note'			=>	$object->clean_input($_POST["s_scholarship_note"]),
-					// Scholarship Details
-					':s_scholar_stat'				=>	$object->clean_input($_POST["s_scholar_stat"])
-				);
-
-				$object->execute($data);
-
-				$success = '<div class="alert alert-success">Student Data Updated</div>';
-			}
-		}
-		$output = array(
-			'error'		=>	$error,
-			'success'	=>	$success
-		);
-
-		echo json_encode($output);
-
+		$error = '<div class="alert alert-danger">Email Address Already Exists</div>';
 	}
-
-// Edit Non-acad Query
-	if($_POST["action"] == 'edit_nonacad')
+	else
 	{
-		$error = '';
-
-		$success = '';
-
-		$data = array(
-			':snemail'	 				=>	 $_POST["snemail"],
-			':s_id'						=>	 $_POST['nonacad_hidden_id']
-		);
-
-		$object->query = "
-		SELECT * FROM tbl_student	
-		WHERE semail = :snemail
-		AND s_id != :s_id
-		";
-
-		$object->execute($data);
-
-		if($object->row_count() > 0)
-		{
-			$error = '<div class="alert alert-danger">Email Address Already Exists</div>';
-		}
-		else
-		{
-			$object->query = "
-			UPDATE tbl_student
-			SET sfname = :sfname,
-			smname = :smname,
-			slname = :slname,
-			snext = :snext,
-			sdbirth = :sdbirth,
-			sgender = :sgender,
-			sctship = :sctship,
-			saddress = :saddress,
-			semail = :semail,
-			scontact = :scontact,
-			sccourse = :sccourse,
-			scsyrlvl = :scsyrlvl,
-			sgfname = :sgfname,
-			sgaddress = :sgaddress,
-			sgcontact = :sgcontact,
-			sgoccu = :sgoccu,
-			sgcompany = :sgcompany,
-			sffname = :sffname,
-			sfaddress = :sfaddress,
-			sfcontact = :sfcontact,
-			sfoccu = :sfoccu,
-			sfcompany = :sfcompany,
-			smfname = :smfname,
-			smaddress = :smaddress,
-			smcontact = :smcontact,
-			smoccu = :smoccu,
-			smcompany  = :smcompany,
-			spcyincome = :spcyincome,
-			srappnas = :srappnas,
-			sbos = :sbos,
-			ssskills = :ssskills,
-			stwinterest = :stwinterest,
-			spschname = :spschname,
-			spsaddress = :spsaddress,
-			spsyrlvl = :spsyrlvl,
-			sdsprc = :sdsprc,
-			sdsprcstat = :sdsprcstat,
-			sdspgm = :sdspgm,
-			sdspgmstat = :sdspgmstat,
-			sdstbytpic = :sndstbytpic,
-			sdstbytpicstat = :sndstbytpicstat,
-			sdsbrgyin = :sdsbrgyin,
-			sdsbrgyinstat = :sdsbrgyinstat,
-			sdscef = :sdscef,
-			sdscefstat = :sdscefstat,
-			s_scholarship_note = :sn_scholarship_note,
-			s_scholar_stat = :sn_scholar_stat
-			WHERE s_id = '".$_POST['nonacad_hidden_id']."' 
-			";
-				
-			if($error == '')
-			{
-
-				$data = array(
-				// Personal Details
-						':sfname'					    =>	$object->clean_input($_POST["snfname"]),
-						':smname'					    =>	$object->clean_input($_POST["snmname"]),
-						':slname'					    =>	$object->clean_input($_POST["snlname"]),
-						':snext'					  	=>	$object->clean_input($_POST["snnext"]),
-						':sdbirth'					  	=>	$object->clean_input($_POST["sndbirth"]),
-						':sgender'					  	=>	$object->clean_input($_POST["sngender"]),
-						':sctship'				    	=>	$object->clean_input($_POST["snctship"]),
-						':saddress'						=>	$object->clean_input($_POST["snaddress"]),
-						':semail'						=>	$object->clean_input($_POST["snemail"]),
-						':scontact'						=>	$object->clean_input($_POST["sncontact"]),
-						':sccourse'						=>	$object->clean_input($_POST["snccourse"]),
-						':scsyrlvl'						=>	$object->clean_input($_POST["sncsyrlvl"]),
-				// Family Details
-					// Guardian Details
-						':sgfname'				      	=>	$object->clean_input($_POST["sngfname"]),
-						':sgaddress'					=>	$object->clean_input($_POST["sngaddress"]),
-						':sgcontact'					=>	$object->clean_input($_POST["sngcontact"]),
-						':sgoccu'					    =>	$object->clean_input($_POST["sngoccu"]),
-						':sgcompany'					=>	$object->clean_input($_POST["sngcompany"]),
-					// Father Details
-						':sffname'				      	=>	$object->clean_input($_POST["snffname"]),
-						':sfaddress'					=>	$object->clean_input($_POST["snfaddress"]),
-						':sfcontact'					=>	$object->clean_input($_POST["snfcontact"]),
-						':sfoccu'				      	=>	$object->clean_input($_POST["snfoccu"]),
-						':sfcompany'				   	=>	$object->clean_input($_POST["snfcompany"]),
-					// Mother Details
-						':smfname'				      	=>	$object->clean_input($_POST["snmfname"]),
-						':smaddress'					=>	$object->clean_input($_POST["snmaddress"]),
-						':smcontact'					=>	$object->clean_input($_POST["snmcontact"]),
-						':smoccu'				      	=>	$object->clean_input($_POST["snmoccu"]),
-						':smcompany'				    =>	$object->clean_input($_POST["snmcompany"]),
-						':spcyincome'				  	=>	$object->clean_input($_POST["snpcyincome"]),
-				// Application Details
-						':srappnas'				    		=>	$object->clean_input($_POST["snrappnas"]),
-						':sbos'					  			=>	$object->clean_input($_POST["snbos"]),
-						':ssskills'					  		=>	$object->clean_input($_POST["snsskills"]),
-						':stwinterest'		  				=>	$object->clean_input($_POST["sntwinterest"]),
-				// Education Details
-						':spschname'				    	=>	$object->clean_input($_POST["snpschname"]),
-						':spsaddress'						=>	$object->clean_input($_POST["snpsaddress"]),
-						':spsyrlvl'		  					=>	$object->clean_input($_POST["snpsyrlvl"]),
-				// Requirements Details
-						':sdsprc'				   			=>	$object->clean_input($_POST["sndsprc"]),
-						':sdsprcstat'						=>	$object->clean_input($_POST["sndsprcstat"]),
-						':sdspgm'		  					=>	$object->clean_input($_POST["sndspgm"]),
-						':sdspgmstat'				    	=>	$object->clean_input($_POST["sndspgmstat"]),
-						':sndstbytpic'						=>	$object->clean_input($_POST["sndstbytpic"]),
-						':sndstbytpicstat'		  			=>	$object->clean_input($_POST["sndstbytpicstat"]),
-						':sdsbrgyin'				   		=>	$object->clean_input($_POST["sndsbrgyin"]),
-						':sdsbrgyinstat'					=>	$object->clean_input($_POST["sndsbrgyinstat"]),
-						':sdscef'		  					=>	$object->clean_input($_POST["sndscef"]),
-						':sdscefstat'		  				=>	$object->clean_input($_POST["sndscefstat"]),
-				// Scholarship Note
-						':sn_scholarship_note'				=>	$object->clean_input($_POST["sn_scholarship_note"]),
-				// Scholarship Details
-						':sn_scholar_stat'		  				=>	$object->clean_input($_POST["sn_scholar_stat"])
- 				);
-
-				$object->execute($data);
-
-				$success = '<div class="alert alert-success">Student Data Updated</div>';
-			}			
-		}
-
-		$output = array(
-			'error'		=>	$error,
-			'success'	=>	$success
-		);
-
-		echo json_encode($output);
-
-	}
-// Edit Unifast Query
-	if($_POST["action"] == 'edit_unifast')
-	{
-		$error = '';
-
-		$success = '';
-
-		$data = array(
-			':susemail'	=>	$_POST["susemail"],
-			':s_id'	=>	$_POST['unifast_hidden_id']
-		);
-
-		$object->query = "
-		SELECT * FROM tbl_student 
-		WHERE semail = :susemail 
-		AND s_id != :s_id
-		";
-
-		$object->execute($data);
-
-		if($object->row_count() > 0)
-		{
-			$error = '<div class="alert alert-danger">Email Address Already Exists</div>';
-		}
-		else
-		{
-			$object->query = "
-			UPDATE tbl_student
-			SET sfname = :susfname,
-			smname = :susmname,
-			slname = :suslname,
-			snext = :susnext,
-			sgender = :susgender,
-			sdbirth = :susdbirth,
-			scontact = :suscontact,
-			saddress = :susaddress,
-			spschname = :suspschname,
-			spscourse = :suspscourse,
-			spsyrlvl = :suspsyrlvl,
-			sccourse = :susccourse,
-			scsyrlvl = :suscsyrlvl,
-			semail = :susemail,
-			sffname = :susffname, 
-			smfname = :susmfname,
-			s4psno = :sus4psno,
-			spcyincome = :suspcyincome,
-			spwdid = :suspwdid,
-			ssdfile = :sussdfile,
-			sdspsa = :susdspsa,
-			sdspsastat = :susdspsastat,
-			sdstbytpic = :susdstbytpic,
-			sdstbytpicstat = :susdstbytpicstat,
-			sdsbrgyin = :susdsbrgyin,
-			sdsbrgyinstat = :susdsbrgyinstat,
-			s_scholarship_note = :sus_scholarship_note,
-			s_scholar_stat = :sus_scholar_stat
-			WHERE s_id = '".$_POST['unifast_hidden_id']."'
-			";
-				
-			if($error == '')
-			{
-
-				$data = array(
-					// Personal Details
-						':suslname'					    =>	$object->clean_input($_POST["suslname"]),
-						':susfname'					    =>	$object->clean_input($_POST["susfname"]),
-						':susmname'					    =>	$object->clean_input($_POST["susmname"]),
-						':susnext'					  	=>	$object->clean_input($_POST["susnext"]),
-						':susgender'					=>	$object->clean_input($_POST["susgender"]),
-						':susdbirth'					=>	$object->clean_input($_POST["susdbirth"]),
-						':suscontact'					=>	$object->clean_input($_POST["suscontact"]),
-						':susaddress'					=>	$object->clean_input($_POST["susaddress"]),
-						':suspschname'					=>	$object->clean_input($_POST["suspschname"]),
-						':suspscourse'					=>	$object->clean_input($_POST["suspscourse"]),
-						':suspsyrlvl'				    =>	$object->clean_input($_POST["suspsyrlvl"]),
-						':susccourse'					=>	$object->clean_input($_POST["susccourse"]),
-						':suscsyrlvl'				    =>	$object->clean_input($_POST["suscsyrlvl"]),
-						':susemail'				    	=>	$object->clean_input($_POST["susemail"]),
-					// Family Details
-						// Father Details
-						':susffname'					=>	$object->clean_input($_POST["susffname"]),
-						// Mother Details
-						':susmfname'					=>	$object->clean_input($_POST["susmfname"]),
-					// Other Details
-						':sus4psno'				        =>	$object->clean_input($_POST["sus4psno"]),
-						':suspcyincome'					=>	$object->clean_input($_POST["suspcyincome"]),
-						':suspwdid'		  			    =>	$object->clean_input($_POST["suspwdid"]),
-						':sussdfile'		  			=>	$object->clean_input($_POST["sussdfile"]),
-					// Requirements Details
-						':susdstbytpic'				   	=>	$object->clean_input($_POST["susdstbytpic"]),
-						':susdstbytpicstat'				=>	$object->clean_input($_POST["susdstbytpicstat"]),
-						':susdspsa'		  				=>	$object->clean_input($_POST["susdspsa"]),
-						':susdspsastat'				    =>	$object->clean_input($_POST["susdspsastat"]),
-						':susdsbrgyin'					=>	$object->clean_input($_POST["susdsbrgyin"]),
-						':susdsbrgyinstat'		  		=>	$object->clean_input($_POST["susdsbrgyinstat"]),
-					// Scholarship Note
-						':sus_scholarship_note'			=>	$object->clean_input($_POST["sus_scholarship_note"]),
-					// Scholarship Details
-						':sus_scholar_stat'		  		=>	$object->clean_input($_POST["sus_scholar_stat"])
-					// s_scholar_stat
-					);
-
-				$object->execute($data);
-
-				$success = '<div class="alert alert-success">Student Data Updated</div>';
-			}			
-		}
-
-		$output = array(
-			'error'		=>	$error,
-			'success'	=>	$success
-		);
-
-		echo json_encode($output);
-
-	}
-
-// Edit CHED Query
-    if($_POST["action"] == 'edit_ched')
-    {
-        $error = '';
-
-        $success = '';
-
-		$data = array(
-			':scsemail'	=>	$_POST["scsemail"],
-			':s_id'	=>	$_POST['ched_hidden_id']
-		);
-
-		$object->query = "
-		SELECT * FROM tbl_student 
-		WHERE semail = :scsemail 
-		AND s_id != :s_id
-		";
-
-		$object->execute($data);
-
-		if($object->row_count() > 0)
-		{
-			$error = '<div class="alert alert-danger">Email Address Already Exists</div>';
-		}
-        else
-        {
-                
-            if($error == '')
-            {
-                $object->query = "
-                UPDATE tbl_student
-                SET sfname = :scsfname,
-                smname = :scsmname,
-                slname = :scslname,
-                snext = :scsnext,
-                sdbirth = :scsdbirth,
-                sgender = :scsgender,
-                scivilstat = :scscivilstat,
-                spbirth = :scspbirth,
-                saddress = :scsaddress,
-                szcode = :scszcode,
-                spschname = :scspschname,
-                spsaddress = :scspsaddress,
-                spstype = :scspstype,
-                spsyrlvl = :scspsyrlvl,
-                sctship = :scsctship,
-                scontact = :scscontact,
-                semail = :scsemail,
-                sdisability = :scsdisability,
-                sffname = :scsffname,
-                sflstatus = :scsflstatus,
-                sfaddress = :scsfaddress,
-                sfoccu = :scsfoccu,
-                sfeduc = :scsfeduc,
-                smfname = :scsmfname,
-                smlstatus = :scsmlstatus,
-            	smaddress = :scsmaddress,
-                smoccu = :scsmoccu,
-                smeduc = :scsmeduc,
-                spcyincome = :scspcyincome,
-                snsibling = :scsnsibling,
-                scsintend = :scscsintend,
-                scsadd = :scscsadd,
-                scschooltype = :scscschooltype,
-                sccourse = :scsccourse,
-				scsyrlvl = :scscsyrlvl,
-                sccourseprio = :scsccourseprio,
-                sdsprc = :scsdsprc,
-                sdsprcstat = :scsdsprcstat,
-                sdspgm = :scsdspgm,
-                sdspgmstat = :scsdspgmstat,
-                sdsbrgyin = :scsdsbrgyin,
-                sdsbrgyinstat = :scsdsbrgyinstat,
-				s_scholarship_note = :scs_scholarship_note,
-				s_scholar_stat = :scs_scholar_stat
-                WHERE s_id = '".$_POST['ched_hidden_id']."'
-                ";
-
-                $data = array(
-            // Personal Details
-                    ':scsfname'					    =>	$object->clean_input($_POST["scsfname"]),
-                    ':scsmname'					    =>	$object->clean_input($_POST["scsmname"]),
-                    ':scslname'					    =>	$object->clean_input($_POST["scslname"]),
-                    ':scsnext'					  	=>	$object->clean_input($_POST["scsnext"]),
-                    ':scsdbirth'					=>	$object->clean_input($_POST["scsdbirth"]),
-                    ':scsgender'					=>	$object->clean_input($_POST["scsgender"]),
-                    ':scscivilstat'				    =>	$object->clean_input($_POST["scscivilstat"]),
-                    ':scspbirth'					=>	$object->clean_input($_POST["scspbirth"]),
-                    ':scsaddress'					=>	$object->clean_input($_POST["scsaddress"]),
-                    ':scszcode'						=>	$object->clean_input($_POST["scszcode"]),
-                    ':scspschname'					=>	$object->clean_input($_POST["scspschname"]),
-                    ':scspsaddress'					=>	$object->clean_input($_POST["scspsaddress"]),
-                    ':scspstype'					=>	$object->clean_input($_POST["scspstype"]),
-                    ':scspsyrlvl'					=>	$object->clean_input($_POST["scspsyrlvl"]),
-                    ':scsctship'					=>	$object->clean_input($_POST["scsctship"]),
-                    ':scscontact'					=>	$object->clean_input($_POST["scscontact"]),
-                    ':scsemail'					    =>	$object->clean_input($_POST["scsemail"]),
-                    ':scsdisability'				=>	$object->clean_input($_POST["scsdisability"]),
-            // Family Details
-                // Father Details
-                    ':scsffname'				    =>	$object->clean_input($_POST["scsffname"]),
-                    ':scsflstatus'			        =>	$object->clean_input($_POST["scsflstatus"]),
-                    ':scsfaddress'					=>	$object->clean_input($_POST["scsfaddress"]),
-                    ':scsfoccu'				      	=>	$object->clean_input($_POST["scsfoccu"]),
-                    ':scsfeduc'					    =>	$object->clean_input($_POST["scsfeduc"]),
-                // Mother Details
-                    ':scsmfname'				    =>	$object->clean_input($_POST["scsmfname"]),
-                    ':scsmlstatus'			        =>	$object->clean_input($_POST["scsmlstatus"]),
-                    ':scsmaddress'					=>	$object->clean_input($_POST["scsmaddress"]),
-                    ':scsmoccu'				      	=>	$object->clean_input($_POST["scsmoccu"]),
-                    ':scsmeduc'					    =>	$object->clean_input($_POST["scsmeduc"]),
-                    ':scspcyincome'				    =>	$object->clean_input($_POST["scspcyincome"]),
-                    ':scsnsibling'				  	=>	$object->clean_input($_POST["scsnsibling"]),
-            // Education Details
-                    ':scscsintend'				    =>	$object->clean_input($_POST["scscsintend"]),
-                    ':scscsadd'					    =>	$object->clean_input($_POST["scscsadd"]),
-                    ':scscschooltype'		  		=>	$object->clean_input($_POST["scscschooltype"]),
-                    ':scsccourse'				    =>	$object->clean_input($_POST["scsccourse"]),
-					':scscsyrlvl'				    =>	$object->clean_input($_POST["scscsyrlvl"]),
-                    ':scsccourseprio'				=>	$object->clean_input($_POST["scsccourseprio"]),
-            // Requirements Details
-                    ':scsdsprc'				   		=>	$object->clean_input($_POST["scsdsprc"]),
-                    ':scsdsprcstat'					=>	$object->clean_input($_POST["scsdsprcstat"]),
-                    ':scsdspgm'		  				=>	$object->clean_input($_POST["scsdspgm"]),
-                    ':scsdspgmstat'				    =>	$object->clean_input($_POST["scsdspgmstat"]),
-                    ':scsdsbrgyin'				    =>	$object->clean_input($_POST["scsdsbrgyin"]),
-                    ':scsdsbrgyinstat'				=>	$object->clean_input($_POST["scsdsbrgyinstat"]),
-			// Scholarship Note
-				':scs_scholarship_note'			=>	$object->clean_input($_POST["scs_scholarship_note"]),
-			// Scholarship Details
-					':scs_scholar_stat'				=>	$object->clean_input($_POST["scs_scholar_stat"])
-                );
-
-                $object->execute($data);
-
-                $success = '<div class="alert alert-success">Student Data Updated</div>';
-            }			
-        }
-
-        $output = array(
-            'error'		=>	$error,
-            'success'	=>	$success
-        );
-
-        echo json_encode($output);
-
-    }
-
-// Change Status Query
-	if($_POST["action"] == 'change_status')
-	{
-		$data = array(
-			':s_scholar_stat'		=>	$_POST['next_status']
-		);
-
 		$object->query = "
 		UPDATE tbl_student
-		SET s_scholar_stat = :s_scholar_stat 
-		WHERE s_id = '".$_POST["id"]."'
+		SET sfname = :sfname,
+		smname = :smname,
+		slname = :slname,
+		snext = :snext,
+		sdbirth = :sdbirth,
+		scivilstat = :scivilstat,
+		saddress = :saddress,
+		scontact = :scontact,
+		spschname = :spschname,
+		sccourse = :sccourse,
+		scsyrlvl = :scsyrlvl,
+		sgender = :sgender,
+		sgfname = :sgfname, 
+		sffname = :sffname,
+		sfoccu = :sfoccu,
+		smfname = :smfname,
+		smoccu = :smoccu,
+		s_scholarship_type = :s_scholarship_type,
+		s_account_status = :s_account_status
+		WHERE s_id = '".$_POST['student_hidden_id']."'
 		";
 
-		$object->execute($data);
+		if($error == '')
+		{
 
-		echo '<div class="alert alert-success">Status change to '.$_POST['next_status'].' Successfully</div>';
+			$data = array(
+				// Personal Details
+				':sfname'					    =>	$object->clean_input($_POST["sfname"]),
+				':smname'					    =>	$object->clean_input($_POST["smname"]),
+				':slname'					    =>	$object->clean_input($_POST["slname"]),
+				':snext'					    =>	$object->clean_input($_POST["snext"]),
+				':sdbirth'					  	=>	$object->clean_input($_POST["sdbirth"]),
+				':sgender'					  	=>	$object->clean_input($_POST["sgender"]),
+				':scivilstat'				    =>	$object->clean_input($_POST["scivilstat"]),
+				':saddress'						=>	$object->clean_input($_POST["saddress"]),
+				':scontact'						=>	$object->clean_input($_POST["scontact"]),
+				':spschname'					=>	$object->clean_input($_POST["spschname"]),
+				':sccourse'						=>	$object->clean_input($_POST["sccourse"]),
+				':scsyrlvl'						=>	$object->clean_input($_POST["scsyrlvl"]),
+				// Family Details
+				// Guardian Details
+				':sgfname'				      	=>	$object->clean_input($_POST["sgfname"]),
+				// Father Details
+				':sffname'				      	=>	$object->clean_input($_POST["sffname"]),
+				':sfoccu'				      	=>	$object->clean_input($_POST["sfoccu"]),
+				// Mother Details
+				':smfname'				      	=>	$object->clean_input($_POST["smfname"]),
+				':smoccu'				      	=>	$object->clean_input($_POST["smoccu"]),
+				// Scholarship Details
+				':s_scholarship_type'			=>	$object->clean_input($_POST["s_scholarship_type"]),
+				':s_account_status'				=>	$object->clean_input($_POST["s_account_status"])
+
+			);
+
+			$object->execute($data);
+
+			$success = '<div class="alert alert-success">Student Data Updated</div>';
+		}
 	}
-// Send Bulk Email
-	if($_POST["action"] == 'send_email')
-	{
-		$error = '';
+	$output = array(
+		'error'		=>	$error,
+		'success'	=>	$success
+	);
 
-		$success = '';
+	echo json_encode($output);
 
-			foreach($_POST['email_data'] as $row)
-			{
+}
 
-				// Load composer's autoloader
-				require '../vendor/autoload.php';
-				$mail = new PHPMailer\PHPMailer\PHPMailer();                            
-				try {
-					//Server settings
-					$mail->isSMTP();                                     
-					$mail->Host = 'smtp.gmail.com';                      
-					$mail->SMTPAuth = true;                             
-					$mail->Username = 'damacriscia@gmail.com';     
-					$mail->Password = 'sewgmibamrfxndzg';             
-					$mail->SMTPOptions = array(
-						'ssl' => array(
-						'verify_peer' => false,
-						'verify_peer_name' => false,
-						'allow_self_signed' => true
-						)  
-					);                         
-					$mail->SMTPSecure = 'ssl';                           
-					$mail->Port = 465;                                   
-			
-					//Send Email
-					$mail->setFrom('damacriscia@gmail.com');
-					$mail->FromName = 'admin';
-					
-					//Recipients
-					$mail->addAddress($row["email"]);            
-					$mail->addReplyTo('damacriscia@gmail.com');
-					$mail->WordWrap = 50;
+// Change Status Query
+if($_POST["action"] == 'change_status')
+{
+	$data = array(
+		':s_account_status'		=>	$_POST['next_status']
+	);
 
-					//Content
-					$mail->isHTML(true);                                  
-					$mail->Subject = ''.$_POST["emailsubject"].'';
-					$message_body = ''.$_POST["emailmessage"].'';
-					$mail->Body = $message_body;
-			
-					$mail->send();
+	$object->query = "
+	UPDATE tbl_student
+	SET s_account_status = :s_account_status 
+	WHERE s_id = '".$_POST["id"]."'
+	";
 
-					$success = '<div class="alert alert-success">Email Send Successfully</div>';
+	$object->execute($data);
 
-				} catch (Exception $e) {
-					$error = '<div class="alert alert-danger">' . $mail->ErrorInfo . '</div>';
-				}
-
-			}
-
-		$output = array(
-			'error'		=>	$error,
-			'success'	=>	$success
-		);
-		echo json_encode($output);
-	}
-// Send Bulk SMS
-	if($_POST["action"] == 'send_sms')
-	{
-		$error = '';
-
-		$success = '';
-
-			foreach($_POST['sms_data'] as $row)
-			{
-
-				require '../vendor/autoload.php';
-
-				// Configure client
-				$config = Configuration::getDefaultConfiguration();
-				$config->setApiKey('Authorization', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhZG1pbiIsImlhdCI6MTY0NDMzMjE3MSwiZXhwIjo0MTAyNDQ0ODAwLCJ1aWQiOjkyOTExLCJyb2xlcyI6WyJST0xFX1VTRVIiXX0.efB_LXKOP8Figa8b_kRrRwQF9j1zcLmP-aP3qygqJi4');
-				$apiClient = new ApiClient($config);
-				$messageClient = new MessageApi($apiClient);
-
-				if(isset($row["sms"]) && isset($_POST["smsmessage"])) {
-					// Sending a SMS Message
-					$sendMessageRequest1 = new SendMessageRequest([
-						'phoneNumber' => $row["sms"],
-						'message' => $_POST["smsmessage"],
-						'deviceId' => 127233
-					]);
-					$sendMessages = $messageClient->sendMessages([
-						$sendMessageRequest1
-					]);
-				}
-					$success = '<div class="alert alert-success">SMS Send Successfully</div>';
-			}
-
-		$output = array(
-			'error'		=>	$error,
-			'success'	=>	$success
-		);
-		echo json_encode($output);
-	}
-
+	echo '<div class="alert alert-success">Status change to '.$_POST['next_status'].' Successfully</div>';
+}
 // Delete
-	if($_POST["action"] == 'delete')
+if($_POST["action"] == 'delete')
+{
+	$object->query = "
+	DELETE FROM tbl_student 
+	WHERE s_id = '".$_POST["id"]."'
+	";
+
+	$object->execute();
+
+	echo '<div class="alert alert-success">Student Data Deleted</div>';
+}
+// Active All
+if($_POST["action"] == 'active_all')
+{
+	for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 	{
-		$object->query = "
-		DELETE FROM tbl_student 
-		WHERE s_id = '".$_POST["id"]."'
-		";
+	$object->query = "
+		UPDATE tbl_student 
+		SET s_account_status = 'Active'
+		WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
 		$object->execute();
-
-		echo '<div class="alert alert-success">Student Data Deleted</div>';
 	}
+	echo '<div class="alert alert-success">Selected Student Data Account Activated</div>';
+}
+// Inactive All
+if($_POST["action"] == 'inactive_all')
+{
+	for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
+	{
+	$object->query = "
+		UPDATE tbl_student 
+		SET s_account_status = 'Inactive'
+		WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
+
+		$object->execute();
+	}
+	echo '<div class="alert alert-success">Selected Student Data Account Inactived</div>';
+}
 // Delete All
-	if($_POST["action"] == 'delete_all')
+if($_POST["action"] == 'delete_all')
+{
+	for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 	{
-		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
-		{
-		$object->query = "
-			DELETE FROM tbl_student 
-			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
+	$object->query = "
+		DELETE FROM tbl_student 
+		WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
-			$object->execute();
-		}
-		echo '<div class="alert alert-success">Selected Student Data Deleted</div>';
+		$object->execute();
 	}
-// Approve All
-	if($_POST["action"] == 'approve_all')
-	{
-		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
-		{
-		$object->query = "
-			UPDATE tbl_student 
-			SET s_scholar_stat = 'Active'
-			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
+	echo '<div class="alert alert-success">Selected Student Data Deleted</div>';
+}
+}
 
-			$object->execute();
-		}
-		echo '<div class="alert alert-success">Selected Student Data Active</div>';
-	}
-// Renewal All
-	if($_POST["action"] == 'renewal_all')
-	{
-		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
-		{
-		$object->query = "
-			UPDATE tbl_student 
-			SET s_scholar_stat = 'Renewal'
-			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
-
-			$object->execute();
-		}
-		echo '<div class="alert alert-success">Selected Student Data For Renewal</div>';
-	}
-
-// Reject All
-	if($_POST["action"] == 'reject_all')
-	{
-		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
-		{
-		$object->query = "
-			UPDATE tbl_student 
-			SET s_scholar_stat = 'Inactive'
-			WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
-
-			$object->execute();
-		}
-		echo '<div class="alert alert-success">Selected Student Data Inactive</div>';
-	}
-
-
-	}
-
-	?>
+?>

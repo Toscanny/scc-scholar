@@ -66,7 +66,7 @@ body, html {
     <div class="w3-right w3-hide-small">
       <a href="#about" class="w3-bar-item w3-button">  <i class="fa fa-th"></i> ABOUT</a>
       <a href="#team" class="w3-bar-item w3-button"><i class="fa fa-group"></i> TEAM</a>
-      <a href="sms/admin/index.php" class="w3-bar-item w3-button" ><i class="fa fa-registered"></i>ADMIN</button></a>
+      <a href="sms/admin/index.php" class="w3-bar-item w3-button" ><i class="fa fa-registered"></i>SCC</button></a>
       <a href="NewStudent/login.php" class="w3-bar-item w3-button"><i class="fa fa-registered"></i>STUDENT</button></a>
    
    </div>

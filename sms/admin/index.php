@@ -156,17 +156,8 @@ padding: 50px;
             </button>
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <div class="navbar-nav">
-
-      
-
-                   
                 </div>
-                
                 <div class="navbar-nav ms-auto">
-                <nav class="nav flex-column flex-sm-row">
-                    <a href="register.php" class="nav-item nav-link ">Sign up</a>
-                    <a href="index.php"  class="nav-item nav-link active">Login</a>
-                </div></nav>
             </div>
         </div>
     </nav>
@@ -224,9 +215,6 @@ padding: 50px;
             </div>
             <div class="form-group">
                 <button type="submit" name="login_button" id="login_button" class="btn btn-primary btn-user btn-block">Login</button>
-            </div>
-            <div class="form-group">
-                <button type="button" name="register_button" id="register_button" class="btn btn-success btn-user btn-block">Register</button>
             </div>
             <div class="form-group">
                 <div class="text-center">
