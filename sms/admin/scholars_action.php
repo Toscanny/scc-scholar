@@ -23,14 +23,14 @@ $object = new sms;
 		if($_POST["action"] == 'fetch')
 		{
 
-			$order_column = array('slname', 'sfname', 'scontact', 'semail', 's_account_status', 's_applied_on');
+			$order_column = array('slname', 'sfname', 'scontact', 'semail', 's_scholar_stat', 's_applied_on');
 			/* Common Data
-				+slname, +sfname, +smname, +sdbirth, +scontact, +sgender, +semail, +s_account_status		
+				+slname, +sfname, +smname, +sdbirth, +scontact, +sgender, +semail, +s_scholar_stat		
 			*/
 			$output = array();
 			
 			$main_query = "
-			SELECT * FROM tbl_student WHERE s_account_status != ''
+			SELECT * FROM tbl_student WHERE s_scholar_stat != ''
 			";
 
 			$search_query = '';
@@ -44,7 +44,7 @@ $object = new sms;
 				$search_query .= 'OR syrlvl LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR scontact LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR semail LIKE "%'.$_POST['search']['value'].'%" ';
-				$search_query .= 'OR s_account_status LIKE "%'.$_POST['search']['value'].'%" ';
+				$search_query .= 'OR s_scholar_stat LIKE "%'.$_POST['search']['value'].'%" ';
 				$search_query .= 'OR s_scholarship_type LIKE "%'.$_POST['search']['value'].'%" )';
 			}
 
@@ -93,13 +93,13 @@ $object = new sms;
 						$sub_array[] = $row["scontact"];
 						$sub_array[] = $row["semail"];
 						$status = '';
-						if($row["s_account_status"] == 'Active')
+						if($row["s_scholar_stat"] == 'Active')
 						{
-							$status = '<button type="button" name="status_button" class="btn btn-warning btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_account_status"].'">Active</button>';
+							$status = '<button type="button" name="status_button" class="btn btn-warning btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Active</button>';
 						}
 						else
 						{
-							$status = '<button type="button" name="status_button" class="btn btn-info btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_account_status"].'">Inactive</button>';
+							$status = '<button type="button" name="status_button" class="btn btn-info btn-sm status_button" data-id="'.$row["s_id"].'" data-status="'.$row["s_scholar_stat"].'">Inactive</button>';
 						}
 						$sub_array[] = $status;
 						$sub_array[] = $row["s_scholarship_type"];
@@ -153,11 +153,11 @@ $object = new sms;
 			(ss_id, sfname, smname, slname, snext, sdbirth, sgender, sctship, saddress, semail, scontact, sccourse, scsyrlvl, sgfname, 
 			sgaddress, sgcontact, sgoccu, sgcompany, sffname, sfaddress, sfcontact, sfoccu, sfcompany, smfname, smaddress, smcontact, 
 			smoccu, smcompany, spcyincome, spsgwa, spsraward, spsdawardrceive, spass, sdsprc, sdsprcstat, sdspgm, sdspgmstat, sdspcr, sdspcrstat, 
-			s_verification_code, s_email_verify, s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
+			s_verification_code, s_email_verify, s_scholar_stat, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
 			VALUES (:ss_id, :sfname, :smname, :slname, :snext, :sdbirth, :sgender, :sctship, :saddress, :semail, :scontact, :sccourse, :scsyrlvl, 
 			:sgfname, :sgaddress, :sgcontact, :sgoccu, :sgcompany, :sffname, :sfaddress, :sfcontact, :sfoccu, :sfcompany, :smfname, 
 			:smaddress, :smcontact, :smoccu, :smcompany, :spcyincome, :spsgwa, :spsraward, :spsdawardrceive, :spass, :sdsprc, :sdsprcstat, 
-			:sdspgm, :sdspgmstat, :sdspcr, :sdspcrstat, :s_verification_code, 'No', 'Active', :s_scholarship_note, :s_account_status, 'Academic', '$object->now')";
+			:sdspgm, :sdspgmstat, :sdspcr, :sdspcrstat, :s_verification_code, 'No', 'Active', :s_scholarship_note, :s_scholar_stat, 'Academic', '$object->now')";
 
 			if($error == '')
 			{
@@ -223,7 +223,7 @@ $object = new sms;
 					// Scholarship Note
 					':s_scholarship_note'		  	=>	$object->clean_input($_POST["s_scholarship_note"]),
 					// Scholarship Details
-					':s_account_status'		  		=>	$object->clean_input($_POST["s_account_status"])
+					':s_scholar_stat'		  		=>	$object->clean_input($_POST["s_scholar_stat"])
  				);
 
 					// // Load composer's autoloader
@@ -324,7 +324,7 @@ $object = new sms;
 				sfcompany, smfname, smaddress, smcontact, smoccu, smcompany, spcyincome, srappnas, sbos, ssskills, 
 				stwinterest, spschname, spsaddress, spsyrlvl, spass, s_verification_code, sdsprc, sdsprcstat, sdspgm, 
 				sdspgmstat, sdstbytpic, sdstbytpicstat, sdsbrgyin, sdsbrgyinstat, sdscef, sdscefstat, s_email_verify, 
-				s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
+				s_scholar_stat, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
 				VALUES (:sns_id, :snfname, :snmname, :snlname, :snnext, :sndbirth, :sngender, :snctship, :snaddress, :snemail, :sncontact, 
 				:snccourse, :sncsyrlvl, :sngfname, :sngaddress, :sngcontact, :sngoccu, :sngcompany, :snffname, :snfaddress, :snfcontact, 
 				:snfoccu, :snfcompany, :snmfname, :snmaddress, :snmcontact, :snmoccu, :snmcompany, :snpcyincome, :snrappnas, :snbos, 
@@ -505,11 +505,11 @@ $object = new sms;
 				(ss_id, slname, sfname, smname, snext, sgender, sdbirth, scontact, saddress, spschname, semail, spscourse, 
 				spsyrlvl, sccourse, scsyrlvl, sffname, smfname, s4psno, spcyincome, spwdid, ssdfile, sdstbytpic, sdstbytpicstat, 
 				sdspsa, sdspsastat, sdsbrgyin, sdsbrgyinstat, spass, s_verification_code, s_email_verify, 
-				s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
+				s_scholar_stat, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
 				VALUES (:sus_id, :suslname, :susfname, :susmname, :susnext, :susgender, :susdbirth, :suscontact, 
 				:susaddress, :suspschname, :susemail, :suspscourse, :suspsyrlvl, :susccourse, :suscsyrlvl, :susffname, :susmfname, :sus4psno, 
 				:suspcyincome, :suspwdid, :sussdfile, :susdstbytpic, :susdstbytpicstat, :susdspsa, :susdspsastat, 
-				:susdsbrgyin, :susdsbrgyinstat, :suspass, :sus_verification_code, 'No', 'Active', :sus_scholarship_note, :sus_account_status, 
+				:susdsbrgyin, :susdsbrgyinstat, :suspass, :sus_verification_code, 'No', 'Active', :sus_scholarship_note, :sus_scholar_stat, 
 				'UNIFAST', '$object->now')";
 				
 				// Generate Verifcation Code
@@ -560,7 +560,7 @@ $object = new sms;
 					// Scholarship Note
 						':sus_scholarship_note'			=>	$object->clean_input($_POST["sus_scholarship_note"]),
 					// Scholarship Details
-						':sus_account_status'		  		=>	$object->clean_input($_POST["sus_account_status"]),
+						':sus_scholar_stat'		  		=>	$object->clean_input($_POST["sus_scholar_stat"]),
 					// Password
 						':suspass'				        =>	$sushash,
 					// Verification Code
@@ -663,13 +663,13 @@ $object = new sms;
 				spschname, spsaddress,  spstype, spsyrlvl, sctship, scontact, semail, sdisability, sffname, sflstatus, 
 				sfaddress, sfoccu, sfeduc, smfname, smlstatus, smaddress, smoccu, smeduc, spcyincome, snsibling, scsintend, 
 				scsadd, scschooltype, sccourse, scsyrlvl, sccourseprio, sdsprc, sdsprcstat, sdsbrgyin, sdsbrgyinstat, sdspgm, sdspgmstat, 
-				spass, s_verification_code, s_email_verify, s_account_status, s_scholarship_note, s_account_status, s_scholarship_type, s_applied_on) 
+				spass, s_verification_code, s_email_verify, s_scholar_stat, s_scholarship_note, s_scholar_stat, s_scholarship_type, s_applied_on) 
 				VALUES (:scss_id, :scsfname, :scsmname, :scslname, :scsnext, :scsdbirth, :scsgender, :scscivilstat, :scspbirth, 
 				:scsaddress, :scszcode, :scspschname, :scspsaddress, :scspstype, :scspsyrlvl, :scsctship, :scscontact, :scsemail, 
 				:scsdisability, :scsffname, :scsflstatus, :scsfaddress, :scsfoccu, :scsfeduc, :scsmfname, :scsmlstatus, :scsmaddress, 
 				:scsmoccu, :scsmeduc, :scspcyincome, :scsnsibling, :scscsintend, :scscsadd, :scscschooltype, :scsccourse, :scscsyrlvl, 
 				:scsccourseprio, :scsdsprc, :scsdsprcstat, :scsdsbrgyin, :scsdsbrgyinstat, :scsdspgm, :scsdspgmstat, :scspass, 
-				:sc_verification_code, 'No', 'Active', :scs_scholarship_note, :scs_account_status, 'CHED', '$object->now')";
+				:sc_verification_code, 'No', 'Active', :scs_scholarship_note, :scs_scholar_stat, 'CHED', '$object->now')";
 				
 				// Generate Verifcation Code
 				$sc_verification_code = md5(uniqid());
@@ -735,7 +735,7 @@ $object = new sms;
 					// Scholarship Note
 						':scs_scholarship_note'			=>	$object->clean_input($_POST["scs_scholarship_note"]),
 					// Scholarship Details
-						':scs_account_status'			=>	$object->clean_input($_POST["scs_account_status"]),
+						':scs_scholar_stat'			=>	$object->clean_input($_POST["scs_scholar_stat"]),
 					// Password
 						':scspass'				        =>	$schash,
 					// Verification Code
@@ -927,9 +927,9 @@ $object = new sms;
 				<option value="s_verification_code">Student Verification Code</option>
 				<option value="s_user_otp">Student OTP</option>
 				<option value="s_email_verify">Student Email Verification Status</option>
-				<option value="s_account_status">Student Account Status</option>
+				<option value="s_scholar_stat">Student Account Status</option>
 				<option value="s_grant_stat">Student Grant Status</option>
-				<option value="s_account_status">Student Scholarship Status</option>
+				<option value="s_scholar_stat">Student Scholarship Status</option>
 				<option value="s_scholarship_type">Student Scholarship Type</option>			
 			</select>
 		</th>
@@ -1108,9 +1108,9 @@ $object = new sms;
 					':s_verification_code'		=>	$row[$_POST["s_verification_code"]],
 					':s_user_otp'				=>	$row[$_POST["s_user_otp"]],
 					':s_email_verify'			=>	$row[$_POST["s_email_verify"]],
-					':s_account_status'			=>	$row[$_POST["s_account_status"]],
+					':s_scholar_stat'			=>	$row[$_POST["s_scholar_stat"]],
 					':s_grant_stat'				=>	$row[$_POST["s_grant_stat"]],
-					':s_account_status'			=>	$row[$_POST["s_account_status"]],
+					':s_scholar_stat'			=>	$row[$_POST["s_scholar_stat"]],
 					':s_scholarship_type'		=>	$row[$_POST["s_scholarship_type"]]
 				);
 
@@ -1128,8 +1128,8 @@ $object = new sms;
 				sccourse, sccourseprio, scsyrlvl, spass, sdsprc, sdsprcstat, sdspgm, sdspgmstat, 
 				sdspcr, sdspcrstat, sdstbytpic, sdstbytpicstat, sdsbrgyin, sdsbrgyinstat, sdscef, 
 				sdscefstat, sdspsa, sdspsastat, sdsobr, sdsobrstat, s_scholarship_note, s_added_on, 
-				s_applied_on, s_verification_code, s_user_otp, s_email_verify, s_account_status, s_grant_stat, 
-				s_account_status, s_scholarship_type) 
+				s_applied_on, s_verification_code, s_user_otp, s_email_verify, s_scholar_stat, s_grant_stat, 
+				s_scholar_stat, s_scholarship_type) 
 				VALUES (:ss_id, :sfname, :smname, :slname, :snext, :sdbirth, :sgender, :saddress, 
 				:szcode, :scontact, :semail, :sctship, :scivilstat, :spbirth, :sdisability, :s4psno, 
 				:spwdid, :srappsship, :srappnas, :sbos, :ssskills, :stwinterest, :ssdfile, :sgfname, 
@@ -1141,7 +1141,7 @@ $object = new sms;
 				:sccourseprio, :scsyrlvl, :spass, :sdsprc, :sdsprcstat, :sdspgm	 :sdspgmstat, :sdspcr, :sdspcrstat, 
 				:sdstbytpic, :sdstbytpicstat, :sdsbrgyin, :sdsbrgyinstat, :sdscef, :sdscefstat, :sdspsa, :sdspsastat, 
 				:sdsobr, :sdsobrstat, :s_scholarship_note, :s_added_on, :s_applied_on, :s_verification_code, 
-				:s_user_otp, :s_email_verify, :s_account_status, :s_grant_stat, :s_account_status, :s_scholarship_type)
+				:s_user_otp, :s_email_verify, :s_scholar_stat, :s_grant_stat, :s_scholar_stat, :s_scholarship_type)
 				";
 
 				$object->execute($data);
@@ -1321,9 +1321,9 @@ $object = new sms;
 				$row[] = $rows["s_verification_code"];
 				$row[] = $rows["s_user_otp"];
 				$row[] = $rows["s_email_verify"];
-				$row[] = $rows["s_account_status"];
+				$row[] = $rows["s_scholar_stat"];
 				$row[] = $rows["s_grant_stat"];
-				$row[] = $rows["s_account_status"];
+				$row[] = $rows["s_scholar_stat"];
 				$row[] = $rows["s_scholarship_type"];
 
 				$content[] = $row;
@@ -1379,7 +1379,7 @@ if($_POST["action"] == 'student_fetch_single')
 		$data['smoccu'] = $row['smoccu'];
 		// Scholar Type
 		$data['s_scholarship_type'] = $row['s_scholarship_type'];
-		$data['s_account_status'] = $row['s_account_status'];
+		$data['s_scholar_stat'] = $row['s_scholar_stat'];
 	}
 
 	echo json_encode($data);
@@ -1431,7 +1431,7 @@ if($_POST["action"] == 'edit_student')
 		smfname = :smfname,
 		smoccu = :smoccu,
 		s_scholarship_type = :s_scholarship_type,
-		s_account_status = :s_account_status
+		s_scholar_stat = :s_scholar_stat
 		WHERE s_id = '".$_POST['student_hidden_id']."'
 		";
 
@@ -1463,7 +1463,7 @@ if($_POST["action"] == 'edit_student')
 				':smoccu'				      	=>	$object->clean_input($_POST["smoccu"]),
 				// Scholarship Details
 				':s_scholarship_type'			=>	$object->clean_input($_POST["s_scholarship_type"]),
-				':s_account_status'				=>	$object->clean_input($_POST["s_account_status"])
+				':s_scholar_stat'				=>	$object->clean_input($_POST["s_scholar_stat"])
 
 			);
 
@@ -1485,12 +1485,12 @@ if($_POST["action"] == 'edit_student')
 if($_POST["action"] == 'change_status')
 {
 	$data = array(
-		':s_account_status'		=>	$_POST['next_status']
+		':s_scholar_stat'		=>	$_POST['next_status']
 	);
 
 	$object->query = "
 	UPDATE tbl_student
-	SET s_account_status = :s_account_status 
+	SET s_scholar_stat = :s_scholar_stat 
 	WHERE s_id = '".$_POST["id"]."'
 	";
 
@@ -1517,7 +1517,7 @@ if($_POST["action"] == 'active_all')
 	{
 	$object->query = "
 		UPDATE tbl_student 
-		SET s_account_status = 'Active'
+		SET s_scholar_stat = 'Active'
 		WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
 		$object->execute();
@@ -1531,7 +1531,7 @@ if($_POST["action"] == 'inactive_all')
 	{
 	$object->query = "
 		UPDATE tbl_student 
-		SET s_account_status = 'Inactive'
+		SET s_scholar_stat = 'Inactive'
 		WHERE s_id = '".$_POST["checkbox_value"][$count]."'";
 
 		$object->execute();

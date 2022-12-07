@@ -2,7 +2,7 @@
 
 class sms
 {
-	public $base_url = 'http://localhost/scc-scholar/sms/admin/';
+	public $base_url = 'http://localhost/scc-scholar/sms/';
 	public $connect;
 	public $query;
 	public $statement;

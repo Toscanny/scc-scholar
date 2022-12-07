@@ -2175,8 +2175,8 @@ $object = new sms;
 					$mail->isSMTP();                                     
 					$mail->Host = 'smtp.gmail.com';                      
 					$mail->SMTPAuth = true;                             
-					$mail->Username = 'damacriscia@gmail.com';     
-					$mail->Password = 'sewgmibamrfxndzg';             
+					$mail->Username = 'tjiecarmen90@gmail.com';     
+					$mail->Password = 'rvpygnuznlbkewwx';             
 					$mail->SMTPOptions = array(
 						'ssl' => array(
 						'verify_peer' => false,
@@ -2188,12 +2188,12 @@ $object = new sms;
 					$mail->Port = 465;                                   
 			
 					//Send Email
-					$mail->setFrom('damacriscia@gmail.com');
+					$mail->setFrom('tjiecarmen90@gmail.com');
 					$mail->FromName = 'UNIFAST';
 					
 					//Recipients
 					$mail->addAddress($row["email"]);            
-					$mail->addReplyTo('damacriscia@gmail.com');
+					$mail->addReplyTo('tjiecarmen90@gmail.com');
 					$mail->WordWrap = 50;
 
 					//Content
