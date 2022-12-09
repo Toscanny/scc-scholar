@@ -74,7 +74,7 @@ echo '<a class="active" class="w3-button"  style="float:right">SIGN UP</a>';
 }else{
 
  echo'<a href="logout.php" class="w3-button" style="float:right">LOGOUT </a>';
- echo'<a href="student_profile.php"  class="w3-button"  style="float:right"> PROFILE</a>';
+ echo'<a href="profile.php"  class="w3-button"  style="float:right"> PROFILE</a>';
 }
 ?>
    </div>

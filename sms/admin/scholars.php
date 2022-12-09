@@ -671,25 +671,25 @@
 			
 		});	
 // Export
-		$('#export_csv').click(function(){
+$('#export_csv').click(function(){
         var checkbox = $('.checkbox:checked');
-		var currentDate = new Date();
-		var day = currentDate.getDate()
-		var month = currentDate.getMonth() + 1
-		var year = currentDate.getFullYear()
-		var hours = currentDate.getHours()
-		var minutes = currentDate.getMinutes()
-		var seconds = currentDate.getSeconds()
-		var times ="";
+        var currentDate = new Date();
+        var day = currentDate.getDate()
+        var month = currentDate.getMonth() + 1
+        var year = currentDate.getFullYear()
+        var hours = currentDate.getHours()
+        var minutes = currentDate.getMinutes()
+        var seconds = currentDate.getSeconds()
+        var times ="";
 
-		if(hours>12){
-		times = "0" + hours%12 + ":" + minutes + ":" + seconds +" PM"
-		}
-		else{
-		times = "0" + hours%12 + ":" + minutes + ":" + seconds +" AM"
-		}
+        if(hours>12){
+        times = "0" + hours%12 + ":" + minutes + ":" + seconds +" PM"
+        }
+        else{
+        times = "0" + hours%12 + ":" + minutes + ":" + seconds +" AM"
+        }
 
-		var d = day + "-" + month + "-" + year + " at " + times;
+        var d = day + "-" + month + "-" + year + " at " + times;
 
         if(checkbox.length > 0)
         {
@@ -698,29 +698,29 @@
                 checkbox_value.push($(this).val());
             });
 
-			const DownloadCsv = (function() {
-			const a = document.createElement("a");
-			document.body.appendChild(a);
-			a.style = "display: none";
-			return function(data, fileName) {
-				const blob = new Blob([data], {type: "octet/stream"}),
-				url = window.URL.createObjectURL(blob);
-				a.href = url;
-				a.download = fileName;
-				a.click();
-				window.URL.revokeObjectURL(url);
-			};
-			}());
-			
+            const DownloadCsv = (function() {
+            const a = document.createElement("a");
+            document.body.appendChild(a);
+            a.style = "display: none";
+            return function(data, fileName) {
+                const blob = new Blob([data], {type: "octet/stream"}),
+                url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            };
+            }());
+            
             $.ajax({
                 url:"scholars_action.php",
                 method:"POST",
-                data:{checkbox_value:checkbox_value, action:'exportsl_csv'},
-				success: function(response) {
-					DownloadCsv(response, 'Student List('+d+').csv')
-				}
+                data:{checkbox_value:checkbox_value, action:'export_csv'},
+                success: function(response) {
+                    DownloadCsv(response, 'Scholar Master List('+d+').csv')
+                }
             });
-       s_scholar_stat }
+        }
         else
         {
             alert("Please select at least one records");

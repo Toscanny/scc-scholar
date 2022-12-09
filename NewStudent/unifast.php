@@ -196,6 +196,9 @@ button:hover {
 #prevBtn {
   background-color: #bbbbbb;
 }
+#submitBtn {
+  background-color: #FB370D;
+}
 
 /* Make circles that indicate the steps of the form: */
 .step {
@@ -485,8 +488,8 @@ Year-level:
       <button type="button" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
       <button type="button" name="submit" id="nextBtn" onclick="nextPrev(1)">Next</button>
 
-      <!-- this should appeared in the last tab beside Submit button -->
-      <button name="apply" class="button_sub" type="submit">Save</button> 
+      <!-- this should appeared in the last tab beside submit button -->
+      <button name="apply" class="button_sub" id="submitBtn" type="submit">Submit</button> 
      
     </div>
   </div>
@@ -523,6 +526,7 @@ function showTab(n) {
   x[n].style.display = "block";
   //... and fix the Previous/Next buttons:
   if (n == 0) {
+    document.getElementById("submitBtn").style.display = "none";
     document.getElementById("prevBtn").style.display = "none";
   }
 
@@ -531,8 +535,8 @@ function showTab(n) {
   } 
 
   if (n == (x.length - 1)) {
-    document.getElementById("nextBtn").innerHTML = "Submit";
-    
+    document.getElementById("nextBtn").innerHTML = "Save";
+    document.getElementById("submitBtn").style.display = "inline";
   } else {
     document.getElementById("nextBtn").innerHTML = "Next";
   }

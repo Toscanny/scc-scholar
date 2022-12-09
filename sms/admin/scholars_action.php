@@ -1161,183 +1161,187 @@ $object = new sms;
     }
 
 // Export CSV
-	if($_POST["action"] == 'export_csv')
+if($_POST["action"] == 'export_csv')
+{
+	$title = array("Student ID No.",
+	"First Name", "Middle Name", 
+	"Last Name", "Name Ext.", 
+	"Date of Birth", "Gender", 
+	"Address", "Zip Code", 
+	"Contact Number", "Email", 
+	"Citizenship", "Civil Status", 
+	"Place of Birth", "Disability ID No.", 
+	"4PS No.", "PWD ID", 
+	"Reason Applying Scholarship", "Reason Applying Non-Academic",
+	"Basic Office Skills", "Special Skills", 
+	"Type of Work Interested In", "Date Filed", 
+	"Guardian Full Name", "Guardian Middle Name", 
+	"Guardian Last Name", "Guardian Name Ext.", 
+	"Guardian Life Status", "Guardian Educational Attainment", 
+	"Guardian Contact Number", "Guardian Address", 
+	"Guardian Occupation", "Guardian Company", 
+	"Father Full Name", "Father Middle Name", 
+	"Father Last Name", "Father Name Ext.",
+	"Father Life Status", "Father Educational Attainment", 
+	"Father Contact", "Father Address", 
+	"Father Occupation", "Father Company", 
+	"Mother Full Name", "Mother Middle Name", 
+	"Mother Last Name", "Mother Name Ext.", 
+	"Mother Life Status", "Mother Educational Attainment", 
+	"Mother Contact", "Mother Address", 
+	"Mother Occupation", "Mother Company",
+	"Number of Sibling", "Parents Combine Yearly Income", 
+	"Previous School Attended", "Previous School Address", 
+	"Previous School Type", "Previous Course", 
+	"Previous Year Level", "Previous Genereal Weight Average", 
+	"Previous Received Award", "Previous Date Award Received", 
+	"Current School Intended to Enroll", "Current School Address", 
+	"Current School Type", "Current Course", 
+	"Current Course Priority", "Current Year Level",  
+	"Password", "Date Submit Report Card", 
+	"Date Submit Report Card Status", "Date Submit Good Moral", 
+	"Date Submit Good Moral Status", "Date Submit Certificate of Recognition", 
+	"Date Submit Certificate of Recognition Status", "Date Submit Two by Two Picture", 
+	"Date Submit Two by Two Picture Status", "Date Submit Brgy. Indegency", 
+	"Date Submit Brgy. Indegency Status", "Date Submit Enrollment Form", 
+	"Date Submit Enrollment Form Status", "Date Submit PSA", 
+	"Date Submit PSA Status", "Date Submit Brgy. Residency",
+	"Date Submit Brgy. Residency Status", "Scholars Note", 
+	"Student Added On", "Student Applied On", 
+	"Student Verification Code", "Student OTP", 
+	"Student Email Verification Status", "Student Account Status", 
+	"Student Grant Status", "Student Scholarship Status", 
+	"Student Scholarship Type", "Student Image", "Student Year Level", "Student Disability", "Date fil"
+	);
+	$output = fopen('php://output', 'w');
+	fputcsv($output, $title);           
+	for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
 	{
-		$title = array("Student ID No.",
-		"First Name", "Middle Name", 
-		"Last Name", "Name Ext.", 
-		"Date of Birth", "Gender", 
-		"Address", "Zip Code", 
-		"Contact Number", "Email", 
-		"Citizenship", "Civil Status", 
-		"Place of Birth", "Disability ID No.", 
-		"4PS No.", "PWD ID", 
-		"Reason Applying Scholarship", "Reason Applying Non-Academic",
-		"Basic Office Skills", "Special Skills", 
-		"Type of Work Interested In", "Date Filed", 
-		"Guardian Full Name", "Guardian Middle Name", 
-		"Guardian Last Name", "Guardian Name Ext.", 
-		"Guardian Life Status", "Guardian Educational Attainment", 
-		"Guardian Contact Number", "Guardian Address", 
-		"Guardian Occupation", "Guardian Company", 
-		"Father Full Name", "Father Middle Name", 
-		"Father Last Name", "Father Name Ext.",
-		"Father Life Status", "Father Educational Attainment", 
-		"Father Contact", "Father Address", 
-		"Father Occupation", "Father Company", 
-		"Mother Full Name", "Mother Middle Name", 
-		"Mother Last Name", "Mother Name Ext.", 
-		"Mother Life Status", "Mother Educational Attainment", 
-		"Mother Contact", "Mother Address", 
-		"Mother Occupation", "Mother Company",
-		"Number of Sibling", "Parents Combine Yearly Income", 
-		"Previous School Attended", "Previous School Address", 
-		"Previous School Type", "Previous Course", 
-		"Previous Year Level", "Previous Genereal Weight Average", 
-		"Previous Received Award", "Previous Date Award Received", 
-		"Current School Intended to Enroll", "Current School Address", 
-		"Current School Type", "Current Course", 
-		"Current Course Priority", "Current Year Level",  
-		"Password", "Date Submit Report Card", 
-		"Date Submit Report Card Status", "Date Submit Good Moral", 
-		"Date Submit Good Moral Status", "Date Submit Certificate of Recognition", 
-		"Date Submit Certificate of Recognition Status", "Date Submit Two by Two Picture", 
-		"Date Submit Two by Two Picture Status", "Date Submit Brgy. Indegency", 
-		"Date Submit Brgy. Indegency Status", "Date Submit Enrollment Form", 
-		"Date Submit Enrollment Form Status", "Date Submit PSA", 
-		"Date Submit PSA Status", "Date Submit Brgy. Residency",
-		"Date Submit Brgy. Residency Status", "Scholars Note", 
-		"Student Added On", "Student Applied On", 
-		"Student Verification Code", "Student OTP", 
-		"Student Email Verification Status", "Student Account Status", 
-		"Student Grant Status", "Student Scholarship Status", 
-		"Student Scholarship Type" 
-		);
-		$output = fopen('php://output', 'w');
-		fputcsv($output, $title);			
-		for($count = 0; $count < count($_POST["checkbox_value"]); $count++)
-		{
+		
+		$object->query = "
+		SELECT * FROM tbl_student
+		WHERE s_id = '".$_POST["checkbox_value"][$count]."'
+		";
+
+		$object->execute();
+		$result = $object->get_result();
+		
+		$content = array();
+		foreach ($result as $rows) {
+			$row = array();
+			$row[] = $rows["ss_id"];
+			$row[] = $rows["sfname"];
+			$row[] = $rows["smname"];
+			$row[] = $rows["slname"];
+			$row[] = $rows["snext"];
+			$row[] = $rows["sdbirth"];
+			$row[] = $rows["sgender"];
+			$row[] = $rows["saddress"];
+			$row[] = $rows["szcode"];
+			$row[] = $rows["scontact"];
+			$row[] = $rows["semail"];
+			$row[] = $rows["sctship"];
+			$row[] = $rows["scivilstat"];
+			$row[] = $rows["spbirth"];
+			$row[] = $rows["sdisability"];
+			$row[] = $rows["s4psno"];
+			$row[] = $rows["spwdid"];
+			$row[] = $rows["srappsship"];
+			$row[] = $rows["srappnas"];
+			$row[] = $rows["sbos"];
+			$row[] = $rows["ssskills"];
+			$row[] = $rows["stwinterest"];
+			$row[] = $rows["ssdfile"];
+			$row[] = $rows["sgfname"];
+			$row[] = $rows["sgmname"];
+			$row[] = $rows["sglname"];
+			$row[] = $rows["sgnext"];
+			$row[] = $rows["sglstatus"];
+			$row[] = $rows["sgeduc"];
+			$row[] = $rows["sgcontact"];
+			$row[] = $rows["sgaddress"];
+			$row[] = $rows["sgoccu"];
+			$row[] = $rows["sgcompany"];
+			$row[] = $rows["sffname"];
+			$row[] = $rows["sfmname"];
+			$row[] = $rows["sflname"];
+			$row[] = $rows["sfnext"];
+			$row[] = $rows["sflstatus"];
+			$row[] = $rows["sfeduc"];
+			$row[] = $rows["sfcontact"];
+			$row[] = $rows["sfaddress"];
+			$row[] = $rows["sfoccu"];
+			$row[] = $rows["sfcompany"];
+			$row[] = $rows["smfname"];
+			$row[] = $rows["smmname"];
+			$row[] = $rows["smlname"];
+			$row[] = $rows["smnext"];
+			$row[] = $rows["smlstatus"];
+			$row[] = $rows["smeduc"];
+			$row[] = $rows["smcontact"];
+			$row[] = $rows["smaddress"];
+			$row[] = $rows["smoccu"];
+			$row[] = $rows["smcompany"];
+			$row[] = $rows["snsibling"];
+			$row[] = $rows["spcyincome"];
+			$row[] = $rows["spschname"];
+			$row[] = $rows["spsaddress"];
+			$row[] = $rows["spstype"];
+			$row[] = $rows["spscourse"];
+			$row[] = $rows["spsyrlvl"];
+			$row[] = $rows["spsgwa"];
+			$row[] = $rows["spsraward"];
+			$row[] = $rows["spsdawardrceive"];
+			$row[] = $rows["scsintend"];
+			$row[] = $rows["scsadd"];
+			$row[] = $rows["scschooltype"];
+			$row[] = $rows["sccourse"];
+			$row[] = $rows["sccourseprio"];
+			$row[] = $rows["scsyrlvl"];
+			$row[] = $rows["spass"];
+			$row[] = $rows["sdsprc"];
+			$row[] = $rows["sdsprcstat"];
+			$row[] = $rows["sdspgm"];
+			$row[] = $rows["sdspgmstat"];
+			$row[] = $rows["sdspcr"];
+			$row[] = $rows["sdspcrstat"];
+			$row[] = $rows["sdstbytpic"];
+			$row[] = $rows["sdstbytpicstat"];
+			$row[] = $rows["sdsbrgyin"];
+			$row[] = $rows["sdsbrgyinstat"];
+			$row[] = $rows["sdscef"];
+			$row[] = $rows["sdscefstat"];
+			$row[] = $rows["sdspsa"];
+			$row[] = $rows["sdspsastat"];
+			$row[] = $rows["sdsobr"];
+			$row[] = $rows["sdsobrstat"];
+			$row[] = $rows["s_scholarship_note"];
+			$row[] = $rows["s_added_on"];
+			$row[] = $rows["s_applied_on"];
+			$row[] = $rows["s_verification_code"];
+			$row[] = $rows["s_user_otp"];
+			$row[] = $rows["s_email_verify"];
+			$row[] = $rows["s_scholar_stat"];
+			$row[] = $rows["s_grant_stat"];
+			$row[] = $rows["s_scholar_stat"];
+			$row[] = $rows["s_scholarship_type"];
+			$row[] = $rows["s_image"];
+			$row[] = $rows["syrlvl"];
+			$row[] = $rows["S_disability"];
+			$row[] = $rows["s_datefil"];
+
+			$content[] = $row;
 			
-			$object->query = "
-			SELECT * FROM tbl_student
-			WHERE s_id = '".$_POST["checkbox_value"][$count]."'
-			";
-
-			$object->execute();
-			$result = $object->get_result();
-			
-			$content = array();
-			foreach ($result as $rows) {
-				$row = array();
-				$row[] = $rows["ss_id"];
-				$row[] = $rows["sfname"];
-				$row[] = $rows["smname"];
-				$row[] = $rows["slname"];
-				$row[] = $rows["snext"];
-				$row[] = $rows["sdbirth"];
-				$row[] = $rows["sgender"];
-				$row[] = $rows["saddress"];
-				$row[] = $rows["szcode"];
-				$row[] = $rows["scontact"];
-				$row[] = $rows["semail"];
-				$row[] = $rows["sctship"];
-				$row[] = $rows["scivilstat"];
-				$row[] = $rows["spbirth"];
-				$row[] = $rows["sdisability"];
-				$row[] = $rows["s4psno"];
-				$row[] = $rows["spwdid"];
-				$row[] = $rows["srappsship"];
-				$row[] = $rows["srappnas"];
-				$row[] = $rows["sbos"];
-				$row[] = $rows["ssskills"];
-				$row[] = $rows["stwinterest"];
-				$row[] = $rows["ssdfile"];
-				$row[] = $rows["sgfname"];
-				$row[] = $rows["sgmname"];
-				$row[] = $rows["sglname"];
-				$row[] = $rows["sgnext"];
-				$row[] = $rows["sglstatus"];
-				$row[] = $rows["sgeduc"];
-				$row[] = $rows["sgcontact"];
-				$row[] = $rows["sgaddress"];
-				$row[] = $rows["sgoccu"];
-				$row[] = $rows["sgcompany"];
-				$row[] = $rows["sffname"];
-				$row[] = $rows["sfmname"];
-				$row[] = $rows["sflname"];
-				$row[] = $rows["sfnext"];
-				$row[] = $rows["sflstatus"];
-				$row[] = $rows["sfeduc"];
-				$row[] = $rows["sfcontact"];
-				$row[] = $rows["sfaddress"];
-				$row[] = $rows["sfoccu"];
-				$row[] = $rows["sfcompany"];
-				$row[] = $rows["smfname"];
-				$row[] = $rows["smmname"];
-				$row[] = $rows["smlname"];
-				$row[] = $rows["smnext"];
-				$row[] = $rows["smlstatus"];
-				$row[] = $rows["smeduc"];
-				$row[] = $rows["smcontact"];
-				$row[] = $rows["smaddress"];
-				$row[] = $rows["smoccu"];
-				$row[] = $rows["smcompany"];
-				$row[] = $rows["snsibling"];
-				$row[] = $rows["spcyincome"];
-				$row[] = $rows["spschname"];
-				$row[] = $rows["spsaddress"];
-				$row[] = $rows["spstype"];
-				$row[] = $rows["spscourse"];
-				$row[] = $rows["spsyrlvl"];
-				$row[] = $rows["spsgwa"];
-				$row[] = $rows["spsraward"];
-				$row[] = $rows["spsdawardrceive"];
-				$row[] = $rows["scsintend"];
-				$row[] = $rows["scsadd"];
-				$row[] = $rows["scschooltype"];
-				$row[] = $rows["sccourse"];
-				$row[] = $rows["sccourseprio"];
-				$row[] = $rows["scsyrlvl"];
-				$row[] = $rows["spass"];
-				$row[] = $rows["sdsprc"];
-				$row[] = $rows["sdsprcstat"];
-				$row[] = $rows["sdspgm"];
-				$row[] = $rows["sdspgmstat"];
-				$row[] = $rows["sdspcr"];
-				$row[] = $rows["sdspcrstat"];
-				$row[] = $rows["sdstbytpic"];
-				$row[] = $rows["sdstbytpicstat"];
-				$row[] = $rows["sdsbrgyin"];
-				$row[] = $rows["sdsbrgyinstat"];
-				$row[] = $rows["sdscef"];
-				$row[] = $rows["sdscefstat"];
-				$row[] = $rows["sdspsa"];
-				$row[] = $rows["sdspsastat"];
-				$row[] = $rows["sdsobr"];
-				$row[] = $rows["sdsobrstat"];
-				$row[] = $rows["s_scholarship_note"];
-				$row[] = $rows["s_added_on"];
-				$row[] = $rows["s_applied_on"];
-				$row[] = $rows["s_verification_code"];
-				$row[] = $rows["s_user_otp"];
-				$row[] = $rows["s_email_verify"];
-				$row[] = $rows["s_scholar_stat"];
-				$row[] = $rows["s_grant_stat"];
-				$row[] = $rows["s_scholar_stat"];
-				$row[] = $rows["s_scholarship_type"];
-
-				$content[] = $row;
-				
-			}
-
-			foreach ($content as $con) {
-				fputcsv($output, $con);
-			}
-
 		}
-		fclose($output);
+
+		foreach ($content as $con) {
+			fputcsv($output, $con);
+		}
 
 	}
+	fclose($output);
+
+}
 
 // Single Student Fetch Query
 if($_POST["action"] == 'student_fetch_single')
