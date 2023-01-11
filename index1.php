@@ -366,14 +366,18 @@ Qualified beneficiaries shall enroll or must be currently enrolled in any CHED p
 <div class="w3-quarter">
    <div class="w3-card w3-center "><br>
       <img src="img/unifast.png" alt="unifast" style="width:70%">
-    <div class="w3-container">
-
-          
+    <div class="w3-container">       
   <h3>UNIFAST <br> Subsidy</h3>
     <!-- <b> <p style="font-size:12px">Unified Student Financial Assistance System for Tertiary Education</p></b> -->
 
 <!-- ----------------start modal----------------- -->
+<?php if(isset($_SESSION["loggedin"])){
+	echo "welcome";
+	header("location:login.php");
+	exit;
+} ?>
      <button onclick="document.getElementById('idA4').style.display='block'" class="w3-button w3-black">INFORMATION</button>
+     
         <div id="idA4" class="w3-modal">
           <div class="w3-modal-content w3-card-4">
             <header class="w3-container w3-red"> 
@@ -383,8 +387,7 @@ Qualified beneficiaries shall enroll or must be currently enrolled in any CHED p
             </header>   
 
           <div class="w3-container w3-justify" >
-
-
+          
 <p> &nbsp &nbsp The Unified Financial Assistance System for Tertiary Education Act, or UniFAST — also known as Republic Act No. 10687 — was signed into law in 15 October last year.The Unified Financial Assistance System for Tertiary Education Act, or UniFAST — also known as Republic Act No. 10687 — was signed into law in 15 October last year.UniFAST reconciles, improves, strengthens, expands, and puts under one body all government-funded modalities of Student Financial Assistance Programs (StuFAPs) for tertiary education – and special purpose education assistance – in both public and private institutions. These modalities include scholarships, grants-in-aid, student loans and other specialized forms of StuFAPs formulated by the UniFAST Board.</p>          
     <hr>
 

@@ -50,7 +50,7 @@ include('header.php');
 					<div class="dropdown">
 					<button type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="btn btn-success btn-circle btn-sm"><i class="fas fa-plus"></i></button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-						<button class="dropdown-item" type="button" name="add_unifast" id="add_unifast">UNIFAST</button>
+						<button class="dropdown-item" type="button" name="add_acad" id="add_acad">UNIFAST</button>
 					</div>
 					<button type="button" name="delete_all" id="delete_all" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-times"></i></button>
 					<button type="button" name="approve_all" id="approve_all" class="btn btn-primary btn-circle btn-sm"><i class="fas fa-thumbs-up"></i></button>
@@ -133,16 +133,6 @@ include('footer.php');
 								<input type="text" name="slname" id="slname" class="form-control" required/>
 								<span id="error_slname" class="text-danger"></span>
 							</div>
-							<div class="col-xs-12 col-sm-12 col-md-3">
-								<label>Select Suffix<span class="text-danger">*</span></label>
-								<select name="snext" id="snext" class="form-control" required>
-								<option value="">-Select-</option>
-								<option value="N/A">N/A</option>
-								<option value="Jr.">Jr.</option>
-								<option value="Sr.">Sr.</option>
-								</select>
-								<span id="error_snext" class="text-danger"></span>
-							</div>
 							<div class="col-xs-10 col-sm-12 col-md-4">
 								<label>Date of Birth<span class="text-danger">*</span></label>
 								<input type="date" name="sdbirth" id="sdbirth" autocomplete="off" class="form-control" required />
@@ -156,11 +146,6 @@ include('footer.php');
 								<option value="Female">Female</option>
 								</select>
 								<span id="error_sgender" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Citizenship<span class="text-danger">*</span></label>
-								<input type="text" name="sctship" id="sctship" class="form-control" required/>
-								<span id="error_sctship" class="text-danger"></span>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-12">
 								<label>Address<span class="text-danger">*</span></label>
@@ -192,7 +177,7 @@ include('footer.php');
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-5 offset-md-2">
 								<label>Student Year Level<span class="text-danger">*</span></label>
-								<select name="scsyrlvl" id="scsyrlvl" class="form-control" required>
+								<select name="syrlvl" id="syrlvl" class="form-control" required>
 								<option value="">-Select-</option>
 								<option value="1st Year">1st Year</option>
 								<option value="2nd Year">2nd Year</option>
@@ -210,36 +195,6 @@ include('footer.php');
 					<div class="card-header" style="font-weight: bold; font-size: 18px;">Family Details</div>
 					<div class="card-body">
 						<div class="form-group">
-						<h5 class="sub-title" style="font-weight: bold; font-size: 16px;">Guardian Details</h5>
-							<div class="row">
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<label>Full Name<span class="text-danger">*</span></label>
-								<input type="text" name="sgfname" id="sgfname" class="form-control" required/>
-								<span id="error_sgfname" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<label>Address<span class="text-danger">*</span></label>
-								<textarea type="text" name="sgaddress" id="sgaddress" class="form-control" required data-parsley-trigger="keyup"></textarea>
-								<span id="error_sgaddress" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Contact Number<span class="text-danger">*</span></label>
-								<input type="text" name="sgcontact" id="sgcontact" class="form-control" required/>
-								<span id="error_sgcontact" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Occupation<span class="text-danger">*</span></label>
-								<input type="text" name="sgoccu" id="sgoccu" class="form-control" placeholder="Put N/A if none" required/>
-								<span id="error_sgoccu" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Company<span class="text-danger">*</span></label>
-								<input type="text" name="sgcompany" id="sgcompany" class="form-control" placeholder="Put N/A if none" required/>
-								<span id="error_sgcompany" class="text-danger"></span>
-							</div>
-							</div>
-						</div>
-						<div class="form-group">
 						<h5 class="sub-title" style="font-weight: bold; font-size: 16px;">Father Details</h5>
 							<div class="row">
 							<div class="col-xs-12 col-sm-12 col-md-12">
@@ -247,25 +202,10 @@ include('footer.php');
 								<input type="text" name="sffname" id="sffname" class="form-control" required/>
 								<span id="error_sffname" class="text-danger"></span>
 							</div>
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<label>Address<span class="text-danger">*</span></label>
-								<textarea type="text" name="sfaddress" id="sfaddress" class="form-control" required data-parsley-trigger="keyup"></textarea>
-								<span id="error_sfaddress" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Contact Number<span class="text-danger">*</span></label>
-								<input type="text" name="sfcontact" id="sfcontact" class="form-control" required/>
-								<span id="error_sfcontact" class="text-danger"></span>
-							</div>
 							<div class="col-xs-12 col-sm-12 col-md-4">
 								<label>Occupation<span class="text-danger">*</span></label>
 								<input type="text" name="sfoccu" id="sfoccu" class="form-control" placeholder="Put N/A if none" required/>
 								<span id="error_sfoccu" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Company<span class="text-danger">*</span></label>
-								<input type="text" name="sfcompany" id="sfcompany" class="form-control" placeholder="Put N/A if none" required/>
-								<span id="error_sfcompany" class="text-danger"></span>
 							</div>
 						</div>
 						</div>
@@ -277,25 +217,10 @@ include('footer.php');
 								<input type="text" name="smfname" id="smfname" class="form-control" required/>
 								<span id="error_smfname" class="text-danger"></span>
 							</div>
-							<div class="col-xs-12 col-sm-12 col-md-12">
-								<label>Address<span class="text-danger">*</span></label>
-								<textarea type="text" name="smaddress" id="smaddress" class="form-control" required data-parsley-trigger="keyup"></textarea>
-								<span id="error_smaddress" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Contact Number<span class="text-danger">*</span></label>
-								<input type="text" name="smcontact" id="smcontact" class="form-control" required/>
-								<span id="error_smcontact" class="text-danger"></span>
-							</div>
 							<div class="col-xs-12 col-sm-12 col-md-4">
 								<label>Occupation<span class="text-danger">*</span></label>
 								<input type="text" name="smoccu" id="smoccu" class="form-control" placeholder="Put N/A if none" required/>
 								<span id="error_smoccu" class="text-danger"></span>
-							</div>
-							<div class="col-xs-12 col-sm-12 col-md-4">
-								<label>Company<span class="text-danger">*</span></label>
-								<input type="text" name="smcompany" id="smcompany" class="form-control" placeholder="Put N/A if none" required/>
-								<span id="error_smcompany" class="text-danger"></span>
 							</div>
 							<div class="col-xs-12 col-sm-12 col-md-4 offset-md-4">
 								<label>Parents Combine Yearly Income<span class="text-danger">*</span></label>
@@ -307,89 +232,8 @@ include('footer.php');
 					</div>
 					</div>
 					</div>
-					<div class="form-group">
-						<div class="card">
-						<div class="card-header" style="font-weight: bold; font-size: 18px;">Achievement Details</div>
-							<div class="card-body">
-							<div class="form-group">
-							<label>Grade/GWA<span class="text-danger">*</span></label>
-							<input type="text" name="spsgwa" id="spsgwa" class="form-control" required/>
-							<span id="error_spsgwa" class="text-danger"></span>
-							</div>
-							<div class="form-group">
-							<label>Award Received<span class="text-danger">*</span></label>
-							<textarea name="spsraward" id="spsraward" class="form-control" required></textarea>
-							<span id="error_spsraward" class="text-danger" required></span>
-							</div>
-							<div class="form-group">
-							<label>Date Received<span class="text-danger">*</span></label>
-								<input type="date" name="spsdawardrceive" id="spsdawardrceive" class="form-control" autocomplete="off" required>
-								<span id="error_spsdawardrceive" class="text-danger"></span>
-							</div>
-							</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="card">
-						<div class="card-header" style="font-weight: bold; font-size: 18px;">Requirements Details</div>
-							<div class="card-body">
-							<div class="form-group">
-								<div class="row">
-									<div class="col-xs-12 col-sm-12 col-md-4">
-										<label>Date Receive Report Card<span class="text-danger">*</span></label>
-										<input type="date" name="sdsprc" id="sdsprc" autocomplete="off" class="form-control" />
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-4">
-										<label>Date Receive Good Moral<span class="text-danger">*</span></label>
-										<input type="date" name="sdspgm" id="sdspgm" autocomplete="off" class="form-control" />
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-4">
-										<label>Date Receive Cert. of Recog.<span class="text-danger">*</span></label>
-										<input type="date" name="sdspcr" id="sdspcr" autocomplete="off" class="form-control" />
-									</div>
-								</div>
-								<div class="row g-3">
-									<div class="col-xs-12 col-sm-12 col-md-4">
-										<label>Select Report Card Status<span class="text-danger">*</span></label>
-										<select name="sdsprcstat" id="sdsprcstat" class="form-control" required>
-										<option value="">-Select-</option>
-										<option value="Received">Received</option>
-										<option value="Not-Received">Not-Received</option>
-										</select>
-										<span id="error_sdsprcstat" class="text-danger"></span>
-									</div>
-										<div class="col-xs-12 col-sm-12 col-md-4">
-										<label>Select Good Moral Status<span class="text-danger">*</span></label>
-										<select name="sdspgmstat" id="sdspgmstat" class="form-control" required>
-										<option value="">-Select-</option>
-										<option value="Received">Received</option>
-										<option value="Not-Received">Not-Received</option>
-										</select>
-										<span id="error_sdspgmstat" class="text-danger"></span>
-									</div>
-									<div class="col-xs-12 col-sm-12 col-md-4">
-										<label>Select Cert. of Recog. Status<span class="text-danger">*</span></label>
-										<select name="sdspcrstat" id="sdspcrstat" class="form-control" required>
-										<option value="">-Select-</option>
-										<option value="Received">Received</option>
-										<option value="Not-Received">Not-Received</option>
-										</select>
-										<span id="error_sdspcrstat" class="text-danger"></span>
-									</div>
-								</div>
 							</div> 
 						</div>
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="card">
-						<div class="card-header" style="font-weight: bold; font-size: 18px;">Scholars Note</div>
-							<div class="card-body">
-								<div class="col-xs-12 col-sm-12 col-md-12">
-									<label>Note:</label>
-									<textarea type="text" name="s_scholarship_note" id="s_scholarship_note" placeholder="Put N/A if None" class="form-control" required data-parsley-trigger="keyup"></textarea>
-								</div>
-							</div>
 						</div>
 					</div>
 					<div class="form-group">
@@ -1008,7 +852,7 @@ include('footer.php');
 				</div>
 				<div class="modal-footer">
 					<input type="hidden" name="unifast_hidden_id" id="unifast_hidden_id" />
-					<input type="hidden" name="action" id="unifast_action" value="add_unifast" />
+					<input type="hidden" name="action" id="unifast_action" value="add_acad" />
 					<input type="submit" name="submit" id="unifast_submit_button" class="btn btn-success" value="Add" />
 					<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
 				</div>
@@ -1712,7 +1556,7 @@ $('#add_acad').click(function(){
 
 	$('#acad_form').parsley().reset();
 
-	$('#acadmodal_title').text('Add Academic Scholar');
+	$('#acadmodal_title').text('Add Unifast Scholar');
 
 	$('#action').val('add_acad');
 
@@ -2117,99 +1961,31 @@ $('#upload_form').parsley();
 	var total_selection = 0;
 
 	var	ss_id	    		=	0
+	var s_image             =   0
 	var	sfname	    		=	0
 	var	smname	    		=	0
 	var	slname	    		=	0
-	var	snext	    		=	0
 	var	sdbirth	    		=	0
 	var	sgender	    		=	0
 	var	saddress			=	0
-	var	szcode	    		=	0
 	var	scontact			=	0
 	var	semail	    		=	0
-	var	sctship	    		=	0
-	var	scivilstat			=	0
-	var	spbirth	    		=	0
-	var	sdisability			=	0
+	var	S_disability		=   0
 	var	s4psno	    		=	0
-	var	spwdid	    		=	0
-	var	srappsship			=	0
-	var	srappnas			=	0
-	var	sbos	    		=	0
-	var	ssskills			=	0
-	var	stwinterest			=	0
-	var	ssdfile	    		=	0
-	var	sgfname	    		=	0
-	var	sgmname	    		=	0
-	var	sglname	    		=	0
-	var	sgnext	    		=	0
-	var	sglstatus			=	0
-	var	sgeduc	    		=	0
-	var	sgcontact			=	0
-	var	sgaddress			=	0
-	var	sgoccu	    		=	0
-	var	sgcompany			=	0
+	var syrlvl              =   0
 	var	sffname	    		=	0
 	var	sfmname	    		=	0
 	var	sflname	    		=	0
-	var	sfnext	    		=	0
-	var	sflstatus			=	0
-	var	sfeduc	    		=	0
-	var	sfcontact			=	0
-	var	sfaddress			=	0
 	var	sfoccu	    		=	0
-	var	sfcompany			=	0
 	var	smfname	    		=	0
 	var	smmname	    		=	0
 	var	smlname	    		=	0
-	var	smnext	    		=	0
-	var	smlstatus			=	0
-	var	smeduc	    		=	0
-	var	smcontact			=	0
-	var	smaddress			=	0
 	var	smoccu	    		=	0
-	var	smcompany			=	0
-	var	snsibling			=	0
 	var	spcyincome			=	0
 	var	spschname			=	0
-	var	spsaddress			=	0
-	var	spstype	    		=	0
-	var	spscourse			=	0
-	var	spsyrlvl			=	0
-	var	spsgwa	    		=	0
-	var	spsraward			=	0
-	var	spsdawardrceive		=	0
-	var	scsintend			=	0
-	var	scsadd	    		=	0
-	var	scschooltype    	=	0
+	var s_datefil           =   0
 	var	sccourse	    	=	0
-	var	sccourseprio		=	0
-	var	scsyrlvl	    	=	0
-	var	spass	        	=	0
-	var	sdsprc	        	=	0
-	var	sdsprcstat	    	=	0
-	var	sdspgm	        	=	0
-	var	sdspgmstat	    	=	0
-	var	sdspcr	        	=	0
-	var	sdspcrstat	    	=	0
-	var	sdstbytpic	    	=	0
-	var	sdstbytpicstat		=	0
-	var	sdsbrgyin	    	=	0
-	var	sdsbrgyinstat		=	0
-	var	sdscef	        	=	0
-	var	sdscefstat	    	=	0
-	var	sdspsa	        	=	0
-	var	sdspsastat	    	=	0
-	var	sdsobr	        	=	0
-	var	sdsobrstat	    	=	0
-	var	s_scholarship_note	=	0
-	var	s_added_on	    	=	0
-	var	s_applied_on		=	0
-	var	s_verification_code	=	0
-	var	s_user_otp	    	=	0
-	var	s_email_verify		=	0
 	var	s_account_status	=	0
-	var	s_grant_stat	    =	0
 	var	s_scholar_stat	    =	0
 	var	s_scholarship_type	=	0
 
@@ -2252,107 +2028,41 @@ $('#upload_form').parsley();
 
 	total_selection = Object.keys(column_data).length;
 
-	if(total_selection >= 96)
+	if(total_selection >= 28)
 	{
 
 	$('#import').attr('disabled', false);
 
 	ss_id				=	column_data.ss_id;
+	s_image				=	column_data.s_image;
+	slname				=	column_data.slname;
 	sfname				=	column_data.sfname;
 	smname				=	column_data.smname;
-	slname				=	column_data.slname;
-	snext				=	column_data.snext;
-	sdbirth				=	column_data.sdbirth;
 	sgender				=	column_data.sgender;
-	saddress			=	column_data.saddress;
-	szcode				=	column_data.szcode;
+	sdbirth				=	column_data.sdbirth;
 	scontact			=	column_data.scontact;
+	saddress			=	column_data.saddress;
+	spschname			=	column_data.spschname;
+	sccourse			=	column_data.sccourse;
+	syrlvl				=	column_data.syrlvl;
 	semail				=	column_data.semail;
-	sctship				=	column_data.sctship;
-	scivilstat			=	column_data.scivilstat;
-	spbirth				=	column_data.spbirth;
-	sdisability			=	column_data.sdisability;
-	s4psno				=	column_data.s4psno;
-	spwdid				=	column_data.spwdid;
-	srappsship			=	column_data.srappsship;
-	srappnas			=	column_data.srappnas;
-	sbos				=	column_data.sbos;
-	ssskills			=	column_data.ssskills;
-	stwinterest			=	column_data.stwinterest;
-	ssdfile				=	column_data.ssdfile;
-	sgfname				=	column_data.sgfname;
-	sgmname				=	column_data.sgmname;
-	sglname				=	column_data.sglname;
-	sgnext				=	column_data.sgnext;
-	sglstatus			=	column_data.sglstatus;
-	sgeduc				=	column_data.sgeduc;
-	sgcontact			=	column_data.sgcontact;
-	sgaddress			=	column_data.sgaddress;
-	sgoccu				=	column_data.sgoccu;
-	sgcompany			=	column_data.sgcompany;
+	sflname				=	column_data.sflname;
 	sffname				=	column_data.sffname;
 	sfmname				=	column_data.sfmname;
-	sflname				=	column_data.sflname;
-	sfnext				=	column_data.sfnext;
-	sflstatus			=	column_data.sflstatus;
-	sfeduc				=	column_data.sfeduc;
-	sfcontact			=	column_data.sfcontact;
-	sfaddress			=	column_data.sfaddress;
 	sfoccu				=	column_data.sfoccu;
-	sfcompany			=	column_data.sfcompany;
+	smlname				=	column_data.smlname;
 	smfname				=	column_data.smfname;
 	smmname				=	column_data.smmname;
-	smlname				=	column_data.smlname;
-	smnext				=	column_data.smnext;
-	smlstatus			=	column_data.smlstatus;
-	smeduc				=	column_data.smeduc;
-	smcontact			=	column_data.smcontact;
-	smaddress			=	column_data.smaddress;
 	smoccu				=	column_data.smoccu;
-	smcompany			=	column_data.smcompany;
-	snsibling			=	column_data.snsibling;
+	s4psno				=	column_data.s4psno;
 	spcyincome			=	column_data.spcyincome;
-	spschname			=	column_data.spschname;
-	spsaddress			=	column_data.spsaddress;
-	spstype				=	column_data.spstype;
-	spscourse			=	column_data.spscourse;
-	spsyrlvl			=	column_data.spsyrlvl;
-	spsgwa				=	column_data.spsgwa;
-	spsraward			=	column_data.spsraward;
-	spsdawardrceive		=	column_data.spsdawardrceive;
-	scsintend			=	column_data.scsintend;
-	scsadd				=	column_data.scsadd;
-	scschooltype		=	column_data.scschooltype;
-	sccourse			=	column_data.sccourse;
-	sccourseprio		=	column_data.sccourseprio;
-	scsyrlvl			=	column_data.scsyrlvl;
-	spass				=	column_data.spass;
-	sdsprc				=	column_data.sdsprc;
-	sdsprcstat			=	column_data.sdsprcstat;
-	sdspgm				=	column_data.sdspgm;
-	sdspgmstat			=	column_data.sdspgmstat;
-	sdspcr				=	column_data.sdspcr;
-	sdspcrstat			=	column_data.sdspcrstat;
-	sdstbytpic			=	column_data.sdstbytpic;
-	sdstbytpicstat		=	column_data.sdstbytpicstat;
-	sdsbrgyin			=	column_data.sdsbrgyin;
-	sdsbrgyinstat		=	column_data.sdsbrgyinstat;
-	sdscef				=	column_data.sdscef;
-	sdscefstat			=	column_data.sdscefstat;
-	sdspsa				=	column_data.sdspsa;
-	sdspsastat			=	column_data.sdspsastat;
-	sdsobr				=	column_data.sdsobr;
-	sdsobrstat			=	column_data.sdsobrstat;
-	s_scholarship_note	=	column_data.s_scholarship_note;
-	s_added_on			=	column_data.s_added_on;
-	s_applied_on		=	column_data.s_applied_on;
-	s_verification_code	=	column_data.s_verification_code;
-	s_user_otp			=	column_data.s_user_otp;
-	s_email_verify		=	column_data.s_email_verify;
-	s_account_status	=	column_data.s_account_status;
-	s_grant_stat		=	column_data.s_grant_stat;
-	s_scholar_stat		=	column_data.s_scholar_stat;
-	s_scholarship_type	=	column_data.s_scholarship_type;
+	S_disability			=	column_data.S_disability;
+	s_datefil			=	column_data.s_datefil;
+	s_scholar_stat			=	column_data.s_scholarship_stat;
+	s_scholarship_type		=	column_data.s_scholarship_type;
+	s_account_status		=	column_data.s_account_status;
+
+
 
 
 	}
@@ -2373,27 +2083,12 @@ $('#upload_form').parsley();
 		url:"unifast_app_action.php",
 		method:"POST",
 		data:
-		{ss_id:ss_id, sfname:sfname, smname:smname, slname:slname, snext:snext, 
-		sdbirth:sdbirth, sgender:sgender, saddress:saddress, szcode:szcode, scontact:scontact, 
-		semail:semail, sctship:sctship, scivilstat:scivilstat, spbirth:spbirth, sdisability:sdisability, 
-		s4psno:s4psno, spwdid:spwdid, srappsship:srappsship, srappnas:srappnas, sbos:sbos, ssskills:ssskills, 
-		stwinterest:stwinterest, ssdfile:ssdfile, sgfname:sgfname, sgmname:sgmname, sglname:sglname, sgnext:sgnext, 
-		sglstatus:sglstatus, sgeduc:sgeduc, sgcontact:sgcontact, sgaddress:sgaddress, sgoccu:sgoccu, sgcompany:sgcompany, 
-		sffname:sffname, sfmname:sfmname, sflname:sflname, sfnext:sfnext, sflstatus:sflstatus, sfeduc:sfeduc, 
-		sfcontact:sfcontact, sfaddress:sfaddress, sfoccu:sfoccu, sfcompany:sfcompany, smfname:smfname, 
-		smmname:smmname, smlname:smlname, smnext:smnext, smlstatus:smlstatus, smeduc:smeduc, 
-		smcontact:smcontact, smaddress:smaddress, smoccu:smoccu, smcompany:smcompany, snsibling:snsibling, 
-		spcyincome:spcyincome, spschname:spschname, spsaddress:spsaddress, spstype:spstype, spscourse:spscourse, 
-		spsyrlvl:spsyrlvl, spsgwa:spsgwa, spsraward:spsraward, spsdawardrceive:spsdawardrceive, scsintend:scsintend, 
-		scsadd:scsadd, scschooltype:scschooltype, sccourse:sccourse, sccourseprio:sccourseprio, 
-		scsyrlvl:scsyrlvl, spass:spass, sdsprc:sdsprc, sdsprcstat:sdsprcstat, sdspgm:sdspgm, 
-		sdspgmstat:sdspgmstat, sdspcr:sdspcr, sdspcrstat:sdspcrstat, sdstbytpic:sdstbytpic, 
-		sdstbytpicstat:sdstbytpicstat, sdsbrgyin:sdsbrgyin, sdsbrgyinstat:sdsbrgyinstat, sdscef:sdscef, 
-		sdscefstat:sdscefstat, sdspsa:sdspsa, sdspsastat:sdspsastat, sdsobr:sdsobr, sdsobrstat:sdsobrstat, 
-		s_scholarship_note:s_scholarship_note, s_added_on:s_added_on, s_applied_on:s_applied_on, 
-		s_verification_code:s_verification_code, s_user_otp:s_user_otp, s_email_verify:s_email_verify, 
-		s_account_status:s_account_status, s_grant_stat:s_grant_stat, s_scholar_stat:s_scholar_stat, 
-		s_scholarship_type:s_scholarship_type, action:'import'},
+			{ss_id:ss_id, s_image:s_image, slname:slname, sfname:sfname, smname:smname,
+			sgender:sgender, sdbirth:sdbirth, scontact:scontact, saddress:saddress, spschname:spschname, 
+			sccourse:sccourse, syrlvl:syrlvl, semail:semail, sflname:sflname, sffname:sffname,
+			sfmname:sfmname, sfoccu:sfoccu, smlname:smlname, smfname:smfname, smmname:smmname, 
+			smoccu:smoccu, s4psno:s4psno, spcyincome:spcyincome, S_disability:S_disability, s_datefil:s_datefil,
+			s_scholar_stat:s_scholar_stat, s_scholarship_type:s_scholarship_type, s_account_status:s_account_status, action:'import'},
 		dataType:'JSON',
 		beforeSend:function(){
 			$('#import').attr('disabled', 'disabled');
@@ -2669,67 +2364,40 @@ $(document).on('click', '.edit_button', function(){
 
 				success:function(data)
 				{
-						$('#ss_id').val(data.ss_id);
-						// Personal Details
-						$('#sfname').val(data.sfname);
-						$('#smname').val(data.smname);
-						$('#slname').val(data.slname);
-						$('#snext').val(data.snext);
-						$('#sdbirth').val(data.sdbirth);
-						$('#sgender').val(data.sgender);
-						$('#sctship').val(data.sctship);
-						$('#saddress').val(data.saddress);
-						$('#semail').val(data.semail);
-						$('#scontact').val(data.scontact);
-						$('#sccourse').val(data.sccourse);
-						$('#scsyrlvl').val(data.scsyrlvl);
-						// Family Details
-						// Guardian Details
-						$('#sgfname').val(data.sgfname);
-						$('#sgaddress').val(data.sgaddress);
-						$('#sgcontact').val(data.sgcontact);
-						$('#sgoccu').val(data.sgoccu);
-						$('#sgcompany').val(data.sgcompany);
-						// Father Details
-						$('#sffname').val(data.sffname);
-						$('#sfaddress').val(data.sfaddress);
-						$('#sfcontact').val(data.sfcontact);
-						$('#sfoccu').val(data.sfoccu);
-						$('#sfcompany').val(data.sfcompany);
-						// Mother Details
-						$('#smfname').val(data.smfname);
-						$('#smaddress').val(data.smaddress);
-						$('#smcontact').val(data.smcontact);
-						$('#smoccu').val(data.smoccu);
-						$('#smcompany').val(data.smcompany);
-						$('#spcyincome').val(data.spcyincome);
-						// Achievement Details
-						$('#spsgwa').val(data.spsgwa);
-						$('#spsraward').val(data.spsraward);
-						$('#spsdawardrceive').val(data.spsdawardrceive);
-						// Requirement Details
-						$('#sdsprc').val(data.sdsprc);
-						$('#sdsprcstat').val(data.sdsprcstat);
-						$('#sdspgm').val(data.sdspgm);
-						$('#sdspgmstat').val(data.sdspgmstat);
-						$('#sdspcr').val(data.sdspcr);
-						$('#sdspcrstat').val(data.sdspcrstat);
-						// Scholarship Note
-						$('#s_scholarship_note').val(data.s_scholarship_note);
-						// Scholarship Details
-						$('#s_scholar_stat').val(data.s_scholar_stat);
+					$('#ss_id').val(data.ss_id);
+							// Personal Details
+							$('#sfname').val(data.sfname);
+							$('#smname').val(data.smname);
+							$('#slname').val(data.slname);
+							$('#sdbirth').val(data.sdbirth);
+							$('#sgender').val(data.sgender);
+							$('#saddress').val(data.saddress);
+							$('#semail').val(data.semail);
+							$('#scontact').val(data.scontact);
+							$('#sccourse').val(data.sccourse);
+							$('#syrlvl').val(data.syrlvl);
+							// Family Details
+							// Father Details
+							$('#sffname').val(data.sffname);
+							$('#sfoccu').val(data.sfoccu);
+							// Mother Details
+							$('#smfname').val(data.smfname);
+							$('#smoccu').val(data.smoccu);
+							$('#spcyincome').val(data.spcyincome);
+							// Scholarship Details
+							$('#s_scholar_stat').val(data.s_scholar_stat);
 
-						$('#acadModal').modal('show');
+							$('#acadModal').modal('show');
 
-						$('#acadmodal_title').text('Edit Academic Scholar Info');
+							$('#acadmodal_title').text('Edit Academic Scholar Info');
 
-						$('#acad_hidden_id').val(s_id);
+							$('#acad_hidden_id').val(s_id);
 
-						$('#ss_id').attr('disabled', true);
+							$('#ss_id').attr('disabled', true);
 
-						$('#acad_action').val('edit_acad');
+							$('#acad_action').val('edit_acad');
 
-						$('#acad_submit_button').val('Edit');
+							$('#acad_submit_button').val('Edit');
 
 				}
 
@@ -3106,68 +2774,36 @@ $(document).on('click', '.view_button', function(){
 				var html = '<div class="table-responsive">';
 				html += '<table class="table">';
 			// Student ID Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Student ID Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">Student ID No.</th><td width="60%">'+data.ss_id+'</td></tr>';
-			// Personal Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Personal Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sfname+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Middle Name</th><td width="60%">'+data.smname+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Last Name</th><td width="60%">'+data.slname+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Suffix</th><td width="60%">'+data.snext+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Date of Birth</th><td width="60%">'+data.sdbirth+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Citizenship</th><td width="60%">'+data.sctship+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.saddress+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Email Address</th><td width="60%">'+data.semail+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.scontact+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Gender</th><td width="60%">'+data.sgender+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Current Course</th><td width="60%">'+data.sccourse+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Current Year Level</th><td width="60%">'+data.scsyrlvl+'</td></tr>';
-			// Family Details
-				// Guardian Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Family Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-left" style="font-size:18px">Guardian Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sgfname+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.sgaddress+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.sgcontact+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.sgoccu+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Company</th><td width="60%">'+data.sgcompany+'</td></tr>';
-				// Father Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:18px">Father Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sffname+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.sfaddress+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.sfcontact+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.sfoccu+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Company</th><td width="60%">'+data.sfcompany+'</td></tr>';
-				// Mother Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:18px">Mother Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.smfname+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.smaddress+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.smcontact+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.smoccu+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Company</th><td width="60%">'+data.smcompany+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Parents Combine Yearly Income</th><td width="60%">'+data.spcyincome+'</td></tr>';
-			// Achievement Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Achievement Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">Grade/GWA</th><td width="60%">'+data.spsgwa+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Award Received</th><td width="60%">'+data.spsraward+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Date Received</th><td width="60%">'+data.spsdawardrceive+'</td></tr>';
-			// Requirement Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Requirement Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">Date Receive Report Card</th><td width="60%">'+data.sdsprc+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Report Card Status</th><td width="60%">'+data.sdsprcstat+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Date Receive Good Moral</th><td width="60%">'+data.sdspgm+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Good Moral Status</th><td width="60%">'+data.sdspgmstat+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Date Receive Certificate of Recognition</th><td width="60%">'+data.sdspcr+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Certificate of Recognition Status</th><td width="60%">'+data.sdspcrstat+'</td></tr>';
-			// Scholarship Note
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Scholarship Note</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">Note:</th><td width="60%">'+data.s_scholarship_note+'</td></tr>';
-			// Scholarship Details
-				html += '<tr><th width="40%" class="text-left" style="font-size:20px">Scholarship Details</th><td width="60%"></td></tr>';
-				html += '<tr><th width="40%" class="text-right">Scholarship Type</th><td width="60%">'+data.s_scholarship_type+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Scholarship Status</th><td width="60%">'+data.s_scholar_stat+'</td></tr>';
-				html += '<tr><th width="40%" class="text-right">Date Applied</th><td width="60%">'+data.s_applied_on+'</td></tr>';
-				html += '</table></div>';
+			html += '<tr><th width="40%" class="text-left" style="font-size:20px">Student ID Details</th><td width="60%"></td></tr>';
+					html += '<tr><th width="40%" class="text-right">Student ID No.</th><td width="60%">'+data.ss_id+'</td></tr>';
+				// Personal Details
+					html += '<tr><th width="40%" class="text-left" style="font-size:20px">Personal Details</th><td width="60%"></td></tr>';
+					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sfname+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Middle Name</th><td width="60%">'+data.smname+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Last Name</th><td width="60%">'+data.slname+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Date of Birth</th><td width="60%">'+data.sdbirth+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.saddress+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Email Address</th><td width="60%">'+data.semail+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.scontact+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Gender</th><td width="60%">'+data.sgender+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Current Course</th><td width="60%">'+data.sccourse+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Current Year Level</th><td width="60%">'+data.syrlvl+'</td></tr>';
+				// Family Details
+					// Father Details
+					html += '<tr><th width="40%" class="text-left" style="font-size:18px">Father Details</th><td width="60%"></td></tr>';
+					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sffname+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.sfoccu+'</td></tr>';
+					// Mother Details
+					html += '<tr><th width="40%" class="text-left" style="font-size:18px">Mother Details</th><td width="60%"></td></tr>';
+					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.smfname+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.smoccu+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Parents Combine Yearly Income</th><td width="60%">'+data.spcyincome+'</td></tr>';
+				// Scholarship Details
+					html += '<tr><th width="40%" class="text-left" style="font-size:20px">Scholarship Details</th><td width="60%"></td></tr>';
+					html += '<tr><th width="40%" class="text-right">Scholarship Type</th><td width="60%">'+data.s_scholarship_type+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Scholarship Status</th><td width="60%">'+data.s_scholar_stat+'</td></tr>';
+					html += '<tr><th width="40%" class="text-right">Date Applied</th><td width="60%">'+data.s_datefil+'</td></tr>';
+					html += '</table></div>';
 
 				$('#viewacadModal').modal('show');
 

@@ -600,23 +600,22 @@
 		$('#import').attr('disabled', false);
 
 		ss_id = column_data.ss_id;
-		slname = column_data.slname;
-		sfname = column_data.sfname;
-		smname = column_data.smname;
-		sgender = column_data.sgender;
-		scontact = column_data.scontact;
-		sdbirth = column_data.sdbirth;
-		saddress = column_data.saddress;
-		scivilstat = column_data.scivilstat;
-		sgfname = column_data.sgfname;
-		sffname = column_data.sffname;
-		sfoccu = column_data.sfoccu;
-		smfname = column_data.smfname;
-		smoccu = column_data.smoccu;
-		spschname = column_data.spschname;
-		scsyrlvl = column_data.scsyrlvl;
-		sccourse = column_data.sccourse;
-		s_scholarship_type = column_data.s_scholarship_type;
+        slname = column_data.slname;
+        sfname = column_data.sfname;
+        smname = column_data.smname;
+        sgender = column_data.sgender;
+        scontact = column_data.scontact;
+        sdbirth = column_data.sdbirth;
+        saddress = column_data.saddress;
+        sgfname = column_data.sgfname;
+        sffname = column_data.sffname;
+        sfoccu = column_data.sfoccu;
+        smfname = column_data.smfname;
+        smoccu = column_data.smoccu;
+        spschname = column_data.spschname;
+        syrlvl = column_data.syrlvl;
+        sccourse = column_data.sccourse;
+        s_scholarship_type = column_data.s_scholarship_type;
 
 		}
 		else
@@ -628,48 +627,48 @@
 		
 
 // Import
-		$(document).on('click', '#import', function(event){
+$(document).on('click', '#import', function(event){
 
-			event.preventDefault();
+event.preventDefault();
 
-			$.ajax({
-			url:"scholars_action.php",
-			method:"POST",
-			data:{ss_id:ss_id, slname:slname, sfname:sfname,
-				smname:smname, sgender:sgender, scontact:scontact, 
-				sdbirth:sdbirth, saddress:saddress, scivilstat:scivilstat, 
-				sgfname:sgfname, sffname:sffname, sfoccu:sfoccu, smfname:smfname, 
-				smoccu:smoccu, spschname:spschname, scsyrlvl:scsyrlvl,
-				sccourse:sccourse, s_scholarship_type:s_scholarship_type,
-				action:'import'},
-			beforeSend:function(){
-				$('#import').attr('disabled', 'disabled');
-				$('#import').text('Importing...');
-			},
-			success:function(data)
-			{
-				$('#import_form')[0].reset();
+$.ajax({
+url:"scholars_action.php",
+method:"POST",
+data:{ss_id:ss_id, slname:slname, sfname:sfname,
+	smname:smname, sgender:sgender, scontact:scontact, 
+	sdbirth:sdbirth, saddress:saddress,  
+	sffname:sffname, sfoccu:sfoccu, smfname:smfname, 
+	smoccu:smoccu, spschname:spschname, syrlvl:syrlvl,
+	sccourse:sccourse, s_scholarship_type:s_scholarship_type,
+	action:'import'},
+beforeSend:function(){
+	$('#import').attr('disabled', 'disabled');
+	$('#import').text('Importing...');
+},
+success:function(data)
+{
+	$('#import_form')[0].reset();
 
-				// if(data.error !== '')
-				// {
-				// 	$('#message').html(data.error);
-				// 	$('#csvIMPModal').modal('hide');
-				// 	$('#import_form')[0].reset();
-				// }
-				if(data.success != '')
-				{
-					$('#csvIMPModal').modal('hide');
-					$('#import_form')[0].reset();
-					$('#message').html(data.success);
-					setTimeout(function() 
-					{
-						location.reload();  //Refresh page
-					}, 3000);
-				}	
-			}
-			})
-			
-		});	
+	// if(data.error !== '')
+	// {
+	//  $('#message').html(data.error);
+	//  $('#csvIMPModal').modal('hide');
+	//  $('#import_form')[0].reset();
+	// }
+	if(data.success != '')
+	{
+		$('#csvIMPModal').modal('hide');
+		$('#import_form')[0].reset();
+		$('#message').html(data.success);
+		setTimeout(function() 
+		{
+			location.reload();  //Refresh page
+		}, 3000);
+	}   
+}
+})
+
+}); 
 // Export
 $('#export_csv').click(function(){
         var checkbox = $('.checkbox:checked');
@@ -873,69 +872,63 @@ $('#export_csv').click(function(){
 	});
 
 // View Function
-    $(document).on('click', '.view_button', function(){
+$(document).on('click', '.view_button', function(){
         var s_id = $(this).data('id');
-	// Student View
-			$.ajax({
+    // Student View
+            $.ajax({
 
-				url:"scholars_action.php",
+                url:"scholars_action.php",
 
-				method:"POST",
+                method:"POST",
 
-				data:{s_id:s_id, action:'student_fetch_single'},
+                data:{s_id:s_id, action:'student_fetch_single'},
 
-				dataType:'JSON',
+                dataType:'JSON',
 
-				success:function(data)
-				{
-					var html = '<div class="table-responsive">';
-					html += '<table class="table">';
-				// Student ID Details
-					html += '<tr><th width="40%" class="text-left" style="font-size:20px">Student ID Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-right">Student ID No.</th><td width="60%">'+data.ss_id+'</td></tr>';
-				// Personal Details
-					html += '<tr><th width="40%" class="text-left" style="font-size:20px">Personal Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sfname+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Middle Name</th><td width="60%">'+data.smname+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Last Name</th><td width="60%">'+data.slname+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Suffix</th><td width="60%">'+data.snext+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Date of Birth</th><td width="60%">'+data.sdbirth+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Civil Status</th><td width="60%">'+data.scivilstat+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.saddress+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.scontact+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Gender</th><td width="60%">'+data.sgender+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Previous School Attended</th><td width="60%">'+data.spschname+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Current Course</th><td width="60%">'+data.sccourse+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Current Year Level</th><td width="60%">'+data.scsyrlvl+'</td></tr>';
-				// Family Details
-					// Guardian Details
-					html += '<tr><th width="40%" class="text-left" style="font-size:20px">Family Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-left" style="font-size:18px">Guardian Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sgfname+'</td></tr>';
-					// Father Details
-					html += '<tr><th width="40%" class="text-left" style="font-size:18px">Father Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sffname+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.sfoccu+'</td></tr>';
-					// Mother Details
-					html += '<tr><th width="40%" class="text-left" style="font-size:18px">Mother Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.smfname+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.smoccu+'</td></tr>';
-				// Scholarship Details
-					html += '<tr><th width="40%" class="text-left" style="font-size:20px">Scholarship Details</th><td width="60%"></td></tr>';
-					html += '<tr><th width="40%" class="text-right">Scholarship Type</th><td width="60%">'+data.s_scholarship_type+'</td></tr>';
-					html += '<tr><th width="40%" class="text-right">Account Status</th><td width="60%">'+data.s_account_status+'</td></tr>';
-					html += '</table></div>';
+                success:function(data)
+                {
+                    var html = '<div class="table-responsive">';
+                    html += '<table class="table">';
+                // Student ID Details
+                    html += '<tr><th width="40%" class="text-left" style="font-size:20px">Student ID Details</th><td width="60%"></td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Student ID No.</th><td width="60%">'+data.ss_id+'</td></tr>';
+                // Personal Details
+                    html += '<tr><th width="40%" class="text-left" style="font-size:20px">Personal Details</th><td width="60%"></td></tr>';
+                    html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sfname+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Middle Name</th><td width="60%">'+data.smname+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Last Name</th><td width="60%">'+data.slname+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Date of Birth</th><td width="60%">'+data.sdbirth+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Address</th><td width="60%">'+data.saddress+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Contact Number</th><td width="60%">'+data.scontact+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Gender</th><td width="60%">'+data.sgender+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Previous School Attended</th><td width="60%">'+data.spschname+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Current Course</th><td width="60%">'+data.sccourse+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Current Year Level</th><td width="60%">'+data.syrlvl+'</td></tr>';
+                // Family Details
+                    // Father Details
+                    html += '<tr><th width="40%" class="text-left" style="font-size:18px">Father Details</th><td width="60%"></td></tr>';
+                    html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.sffname+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.sfoccu+'</td></tr>';
+                    // Mother Details
+                    html += '<tr><th width="40%" class="text-left" style="font-size:18px">Mother Details</th><td width="60%"></td></tr>';
+                    html += '<tr><th width="40%" class="text-right">First Name</th><td width="60%">'+data.smfname+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Occupation/Position</th><td width="60%">'+data.smoccu+'</td></tr>';
+                // Scholarship Details
+                    html += '<tr><th width="40%" class="text-left" style="font-size:20px">Scholarship Details</th><td width="60%"></td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Scholarship Type</th><td width="60%">'+data.s_scholarship_type+'</td></tr>';
+                    html += '<tr><th width="40%" class="text-right">Account Status</th><td width="60%">'+data.s_account_status+'</td></tr>';
+                    html += '</table></div>';
 
-					$('#viewstudentModal').modal('show');
+                    $('#viewstudentModal').modal('show');
 
-					$('#acad_details').html(html);
+                    $('#acad_details').html(html);
 
-				}
+                }
 
-			})
-		
+            })
+        
 
-    	});
+        });
 
 // Select All
    $('#select_all').on('click', function(){;

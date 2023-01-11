@@ -11,7 +11,7 @@ $slname = $_POST['slname'];
 $sfname = $_POST['sfname'];
 $smname = $_POST['smname'];
 $sgender = $_POST['sgender'];
-$sdbirth = $_POST['vsdbirth'];
+$sdbirth = $_POST['sdbirth'];
 $scontact = $_POST ['cpNO'];
 $saddress =  $_POST ['saddress'];
 $spschname =  $_POST['spschname'];
@@ -41,10 +41,10 @@ $s4psno =  $_POST['s4psno'];
 $spcyincome =  $_POST['spcyincome'];
 
 //PWD
-$S_disability =  $_POST['sdisability'];
+$S_disability =  $_POST['S_disability'];
 
 //date filled
-$s_datefil =  $_POST['datefil'];
+$s_datefil =  $_POST['s_datefil'];
 
 //student image
 $image = $_FILES['filename']['name'];
@@ -55,8 +55,8 @@ $filename = time().'.'.$image_ext;
   
 
 
-$statement = "INSERT INTO tbl_newstudent (ss_id, s_image, slname, sfname, smname, sgender, sdbirth, scontact, saddress, spschname, sccourse, syrlvl, semail, sflname, sffname, sfmname, sfoccu, smlname, smfname, smmname, smoccu, s4psno, S_disability, s_datefil)
-VALUES ('$ss_id', '$s_image', '$slname', '$sfname', '$smname', '$sgender', '$sdbirth', '$scontact', '$saddress', '$spschname', '$sccourse', '$syrlvl', '$semail', '$sflname', '$sffname', '$sfmname', '$sfoccu', '$smlname', '$smfname', '$smmname', '$smoccu', '$s4psno', '$S_disability', '$s_datefil')";
+$statement = "INSERT INTO tbl_newstudent (ss_id, s_image, slname, sfname, smname, sgender, sdbirth, scontact, saddress, spschname, sccourse, syrlvl, semail, sflname, sffname, sfmname, sfoccu, smlname, smfname, smmname, smoccu, s4psno, spcyincome, S_disability, s_datefil)
+VALUES ('$ss_id', '$image', '$slname', '$sfname', '$smname', '$sgender', '$sdbirth', '$scontact', '$saddress', '$spschname', '$sccourse', '$syrlvl', '$semail', '$sflname', '$sffname', '$sfmname', '$sfoccu', '$smlname', '$smfname', '$smmname', '$smoccu', '$s4psno', '$spcyincome', '$S_disability', '$s_datefil')";
 
 
 $sql = mysqli_query($conn, $statement);
@@ -321,7 +321,7 @@ button:hover {
 
 <div class="col-xs-10 col-sm-12 col-md-4">
                <label>Date of Birth<span class="text-danger">*</span></label>
-                          <input type="date" name="vsdbirth" id="vsdbirth" autocomplete="off" class="form-control" />
+                          <input type="date" name="sdbirth" id="sdbirth" autocomplete="off" class="form-control" />
                         <span id="error_vsdbirth" class="text-danger"></span>
                       </div>
 
@@ -340,10 +340,10 @@ Cellphone No:
   <div class="tab">Permanent Home Address:
   <div class="row">
 
-   <p> <input type="text" placeholder="Permanent Address..." oninput="this.className = ''" name="saddress"></p>
+   <p> <input type="text" placeholder="Permanent Address..." oninput="this.className = 'saddress'" name="saddress"></p>
 
    <p> Previous School Attended:
-    <input placeholder="Previous School Attended..." oninput="this.className = ''" name="spschname"></p>
+    <input placeholder="Previous School Attended..." oninput="this.className = 'spschname'" name="spschname"></p>
   
 
     <div class="col-md-6">
@@ -377,7 +377,7 @@ Year-level:
 
 
 <p><p>Email Address:
-    <input placeholder="Email Address..." oninput="this.className = ''" name="semail"></p>
+    <input placeholder="Email Address..." oninput="this.className = 'semail'" name="semail"></p>
       
 
 <br> <br>
@@ -391,30 +391,30 @@ Year-level:
   <hr>
   Father
   <p><div class="col-xs-6 col-sm-3">
- <input placeholder="Last name..." oninput="this.className = ''" name="sffname"></p> </div>
+ <input placeholder="Last name..." oninput="this.className = 'sffname'" name="sffname"></p> </div>
 
   <div class="col-xs-6 col-sm-3">
- <input placeholder="Given name..." oninput="this.className = ''" name="sfmname"></p> </div>
+ <input placeholder="Given name..." oninput="this.className = 'sfname'" name="sfmname"></p> </div>
 
   <div class="col-xs-6 col-sm-3">
-  <input placeholder="Middle name..." oninput="this.className = ''" name="sflname"></p> </div>
+  <input placeholder="Middle name..." oninput="this.className = 'sflname'" name="sflname"></p> </div>
 
   <div class="col-xs-6 col-sm-3">
- <input placeholder="Occupation..." oninput="this.className = ''" name="sfoccu"></p> </div>
+ <input placeholder="Occupation..." oninput="this.className = 'sfoccu'" name="sfoccu"></p> </div>
 
 <hr>
   Mother
   <p><div class="col-xs-6 col-sm-3">
-  <p><input placeholder="Last name..." oninput="this.className = ''" name="smfname"></p> </div>
+  <p><input placeholder="Last name..." oninput="this.className = 'smfname'" name="smfname"></p> </div>
 
   <div class="col-xs-6 col-sm-3">
- <input placeholder="Given name..." oninput="this.className = ''" name="smmname"></p> </div>
+ <input placeholder="Given name..." oninput="this.className = 'smmname'" name="smmname"></p> </div>
 
   <div class="col-xs-6 col-sm-3">
-<input placeholder="Middle name..." oninput="this.className = ''" name="smlname"></p> </div>
+<input placeholder="Middle name..." oninput="this.className = 'smlname'" name="smlname"></p> </div>
 
   <div class="col-xs-6 col-sm-3">
-<input placeholder="Occupation..." oninput="this.className = ''" name="smoccu"></p> </div>
+<input placeholder="Occupation..." oninput="this.className = 'smoccu'" name="smoccu"></p> </div>
 
 
   </div></div>
@@ -422,21 +422,21 @@ Year-level:
 
 
   <div class="tab">DSWD Household/ 4PS NO.:
-   <input placeholder="DSWD Household/ 4PS NO..." oninput="this.className = ''" name="s4psno"></p>
+   <input placeholder="DSWD Household/ 4PS NO..." oninput="this.className = 's4psno'" name="s4psno"></p>
 
 
   <p> Household Capital Income per month:
- <input placeholder="Household Capital Income..." oninput="this.className = ''" name="spcyincome"></p>
+ <input placeholder="Household Capital Income..." oninput="this.className = 'spcyincome'" name="spcyincome"></p>
   
 
   <p> Specify Disability / Attached PWD ID:
- <input placeholder="Specify Disability / Attached PWD ID..."oninput="this.className = ''" name="sdisability"></p>
+ <input placeholder="Specify Disability / Attached PWD ID..."oninput="this.className = 'S_disability'" name="S_disability"></p>
   
 
 
  
   <label>Date Field<span class="text-danger">*</span></label>
-                          <input type="date" name="vsdbirth" id="vsdbirth" autocomplete="off" class="form-control" />
+                          <input type="date" name="s_datefil" id="s_datefil" autocomplete="off" class="form-control" />
                         <span id="error_vsdbirth" class="text-danger"></span>
                       </div>
 
